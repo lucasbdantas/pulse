@@ -1,19 +1,11 @@
 {
-  "name": "pulse-personal-feed",
+  "name": "pulse",
   "version": "0.3.1",
-  "description": "Pulse — Feed pessoal de inteligência com IA (Gemini). Projeto de Lucas (Unicamp · Agibank).",
   "private": true,
   "scripts": {
-    "dev": "netlify dev",
-    "deploy": "netlify deploy --prod"
+    "build": "echo \"No build step required\""
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0"
-  },
-  "devDependencies": {
-    "netlify-cli": "^17.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }

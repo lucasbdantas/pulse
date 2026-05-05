@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulse — Inteligência Pessoal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   RESET & ROOT
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --bg:        #07090f;
+  --bg-raised: #0c1018;
+  --bg-card:   #0f1520;
+  --border:    rgba(255,255,255,0.07);
+  --border-md: rgba(255,255,255,0.11);
+  --border-hi: rgba(255,255,255,0.18);
+  --text-1: #f0f2f8;
+  --text-2: #8b95a8;
+  --text-3: #505968;
+  --blue:    #4a8eff; --blue-bg: rgba(74,142,255,0.1);
+  --green:   #34d399; --green-bg: rgba(52,211,153,0.09);
+  --amber:   #fbbf24; --amber-bg: rgba(251,191,36,0.09);
+  --violet:  #a78bfa; --violet-bg: rgba(167,139,250,0.09);
+  --rose:    #fb7185; --rose-bg: rgba(251,113,133,0.08);
+  --cyan:    #22d3ee; --cyan-bg: rgba(34,211,238,0.08);
+  --orange:  #fb923c; --orange-bg: rgba(251,146,60,0.09);
+  --radius: 12px; --radius-lg: 18px; --radius-xl: 24px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.7);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg); color: var(--text-1);
+  min-height: 100vh; overflow-x: hidden;
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(74,142,255,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167,139,250,0.03) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,9,15,0.82);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 28px;
+  height: 58px; display: flex; align-items: center; gap: 20px;
+}
+.logo-mark { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+  width: 30px; height: 30px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+  box-shadow: 0 0 16px rgba(74,142,255,0.35); flex-shrink: 0;
+}
+.logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.3px; color: var(--text-1); }
+.header-divider { width: 1px; height: 18px; background: var(--border-md); flex-shrink: 0; }
+.header-sub { font-size: 12.5px; color: var(--text-3); flex: 1; display: none; }
+@media (min-width: 600px) { .header-sub { display: block; } }
+.pulse-live {
+  display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px; color: var(--green); background: var(--green-bg);
+  border: 1px solid rgba(52,211,153,0.18); padding: 5px 12px; border-radius: 100px;
+}
+.live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.version-badge { font-size: 10px; font-weight: 700; font-family: 'Geist Mono', monospace; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(251,191,36,0.2); padding: 3px 8px; border-radius: 100px; display: none; }
+@media (min-width: 760px) { .version-badge { display: block; } }
+
+/* ================================================================
+   LAYOUT
+   ================================================================ */
+.layout { max-width: 1320px; margin: 0 auto; padding: 28px 28px 60px; display: grid; grid-template-columns: 1fr; gap: 28px; position: relative; z-index: 1; }
+@media (min-width: 960px) { .layout { grid-template-columns: 268px 1fr; align-items: start; } }
+
+/* ================================================================
+   SIDEBAR
+   ================================================================ */
+.sidebar { display: flex; flex-direction: column; gap: 12px; }
+@media (min-width: 960px) { .sidebar { position: sticky; top: 74px; } }
+.s-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.profile-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+.avatar { width: 44px; height: 44px; border-radius: 13px; background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 17px; color: white; flex-shrink: 0; box-shadow: 0 0 20px rgba(74,142,255,0.2); }
+.profile-name { font-weight: 700; font-size: 15px; line-height: 1.2; margin-bottom: 3px; }
+.profile-meta { font-size: 11.5px; color: var(--text-2); line-height: 1.6; }
+.s-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-3); padding: 14px 20px 10px; }
+.obj-list { padding: 0 12px 14px; display: flex; flex-direction: column; gap: 3px; }
+.obj-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 9px; font-size: 12.5px; color: var(--text-2); transition: background 0.2s; cursor: default; }
+.obj-item:hover { background: rgba(255,255,255,0.03); color: var(--text-1); }
+.obj-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.filter-group { padding: 0 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.filter-btn { display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px; border-radius: 9px; border: none; background: transparent; color: var(--text-2); font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 400; cursor: pointer; transition: background 0.18s, color 0.18s; text-align: left; }
+.filter-btn:hover { background: rgba(255,255,255,0.04); color: var(--text-1); }
+.filter-btn.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
+.filter-emoji { font-size: 13px; width: 20px; text-align: center; }
+.filter-count { margin-left: auto; font-size: 11px; font-family: 'Geist Mono', monospace; background: rgba(255,255,255,0.06); color: var(--text-3); padding: 1px 7px; border-radius: 100px; }
+.filter-btn.active .filter-count { background: rgba(74,142,255,0.15); color: var(--blue); }
+
+/* Data tools */
+.data-tools { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.data-tools-title { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-3); padding: 2px 0 6px; }
+.tool-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 11px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 12.5px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-2); transition: all 0.18s; text-align: left; }
+.tool-btn:hover { background: rgba(255,255,255,0.04); color: var(--text-1); border-color: var(--border-md); }
+.tool-btn.danger { color: var(--rose); border-color: rgba(251,113,133,0.15); }
+.tool-btn.danger:hover { background: var(--rose-bg); border-color: rgba(251,113,133,0.3); }
+.tool-btn-icon { font-size: 13px; flex-shrink: 0; }
+#importFile { display: none; }
+
+/* Mini stats */
+.mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.mini-stat { background: var(--bg-card); padding: 14px 16px; display: flex; flex-direction: column; gap: 3px; }
+.mini-stat:first-child { border-radius: var(--radius-lg) 0 0 0; }
+.mini-stat:nth-child(2) { border-radius: 0 var(--radius-lg) 0 0; }
+.mini-stat:nth-child(3) { border-radius: 0 0 0 var(--radius-lg); }
+.mini-stat:nth-child(4) { border-radius: 0 0 var(--radius-lg) 0; }
+.mini-stat-val { font-family: 'Geist Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text-1); line-height: 1; }
+.mini-stat-lbl { font-size: 10.5px; color: var(--text-3); }
+
+/* ================================================================
+   FEED AREA
+   ================================================================ */
+.feed-area { display: flex; flex-direction: column; gap: 20px; }
+
+/* ================================================================
+   TOP PRIORIDADE DO DIA
+   ================================================================ */
+.priority-section { background: var(--bg-card); border: 1px solid rgba(251,191,36,0.2); border-radius: var(--radius-xl); overflow: hidden; position: relative; }
+.priority-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(251,191,36,0.04) 0%, rgba(251,146,60,0.02) 100%); pointer-events: none; }
+.priority-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid rgba(251,191,36,0.12); position: relative; }
+.priority-eyebrow { display: flex; align-items: center; gap: 8px; }
+.priority-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--amber-bg); border: 1px solid rgba(251,191,36,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.priority-title { font-weight: 700; font-size: 13px; color: var(--amber); letter-spacing: 0.2px; }
+.priority-date { font-size: 11px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+.priority-grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: rgba(251,191,36,0.08); }
+@media (min-width: 640px) { .priority-grid { grid-template-columns: 1fr 1fr 1fr; } }
+.priority-item { background: var(--bg-card); padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; cursor: default; transition: background 0.2s; }
+.priority-item:hover { background: rgba(255,255,255,0.015); }
+.priority-item-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--amber); font-weight: 500; letter-spacing: 1px; }
+.priority-item-text { font-size: 13px; font-weight: 600; color: var(--text-1); line-height: 1.4; }
+.priority-item-sub { font-size: 11.5px; color: var(--text-3); line-height: 1.5; }
+.priority-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 100px; margin-top: 2px; width: fit-content; }
+
+/* ================================================================
+   INPUT DE GERAÇÃO — com indicador de modo IA
+   ================================================================ */
+.input-bar {
+  background: var(--bg-card); border: 1px solid var(--border-md); border-radius: var(--radius-lg);
+  padding: 14px 16px; display: flex; gap: 10px; align-items: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-bar:focus-within { border-color: rgba(74,142,255,0.35); box-shadow: 0 0 0 3px rgba(74,142,255,0.06); }
+.input-bar.loading { border-color: rgba(167,139,250,0.4); box-shadow: 0 0 0 3px rgba(167,139,250,0.06); }
+.input-icon { font-size: 15px; flex-shrink: 0; }
+.input-bar input { flex: 1; background: transparent; border: none; outline: none; font-family: 'Outfit', sans-serif; font-size: 13.5px; color: var(--text-1); }
+.input-bar input::placeholder { color: var(--text-3); }
+.input-bar input:disabled { opacity: 0.5; }
+
+/* Botão de gerar com estados */
+.btn-gen {
+  background: var(--blue); color: white; border: none; border-radius: 9px;
+  padding: 8px 16px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 12.5px;
+  cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 12px rgba(74,142,255,0.25);
+  display: flex; align-items: center; gap: 7px; min-width: 110px; justify-content: center;
+}
+.btn-gen:hover:not(:disabled) { background: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,142,255,0.35); }
+.btn-gen:active:not(:disabled) { transform: translateY(0); }
+.btn-gen:disabled { opacity: 0.65; cursor: not-allowed; }
+.btn-gen.state-loading { background: var(--violet); box-shadow: 0 2px 12px rgba(167,139,250,0.3); }
+.btn-gen.state-error { background: var(--rose); box-shadow: 0 2px 12px rgba(251,113,133,0.3); }
+
+/* Spinner */
+.spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Status de modo IA */
+.ai-mode-bar {
+  display: flex; align-items: center; gap: 8px; font-size: 11.5px;
+  color: var(--violet); background: var(--violet-bg);
+  border: 1px solid rgba(167,139,250,0.18); border-radius: 10px;
+  padding: 8px 14px; transition: opacity 0.3s;
+}
+.ai-mode-bar.hidden { display: none; }
+.ai-mode-bar .ai-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--violet); flex-shrink: 0; }
+.ai-mode-bar.fallback { color: var(--amber); background: var(--amber-bg); border-color: rgba(251,191,36,0.18); }
+.ai-mode-bar.fallback .ai-dot { background: var(--amber); }
+
+/* ================================================================
+   FEED CONTROLS
+   ================================================================ */
+.feed-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.feed-counter { font-size: 12px; color: var(--text-3); }
+.feed-counter strong { color: var(--text-2); font-weight: 600; }
+.ctrl-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.ctrl-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-3); padding: 5px 12px; border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 11.5px; cursor: pointer; transition: all 0.18s; }
+.ctrl-btn:hover { background: var(--bg-raised); color: var(--text-2); border-color: var(--border-md); }
+.ctrl-btn.active { color: var(--blue); border-color: rgba(74,142,255,0.3); background: var(--blue-bg); }
+
+/* ================================================================
+   FEED LIST
+   ================================================================ */
+.feed-list { display: flex; flex-direction: column; gap: 14px; }
+
+/* ================================================================
+   CARD
+   ================================================================ */
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease-out), opacity 0.3s; animation: card-appear 0.4s var(--ease-out) both; position: relative; }
+@keyframes card-appear { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.card:hover { border-color: var(--border-md); box-shadow: 0 8px 40px rgba(0,0,0,0.4); transform: translateY(-2px); }
+.card-accent-bar { height: 2px; background: linear-gradient(90deg, var(--card-color, var(--blue)), transparent 80%); }
+.card.state-useful { border-color: rgba(52,211,153,0.2); background: rgba(52,211,153,0.015); }
+.card.state-useful .card-accent-bar { background: linear-gradient(90deg, var(--green), transparent 80%); }
+.card.state-ignored { opacity: 0.22; transform: scale(0.985); pointer-events: none; max-height: 58px; overflow: hidden; }
+.card.state-generated { border-color: rgba(167,139,250,0.2); } /* IA = violeta */
+.card.state-generated-local { border-color: rgba(251,191,36,0.18); } /* local = âmbar */
+.card-body { padding: 20px 22px; }
+.card-row1 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.card-left-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cat-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 100px; border: 1px solid; }
+.ai-chip { font-size: 10px; font-weight: 600; color: var(--violet); background: var(--violet-bg); border: 1px solid rgba(167,139,250,0.2); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.3px; }
+.local-chip { font-size: 10px; font-weight: 600; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(251,191,36,0.2); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.3px; }
+.rel-score { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.rel-bar-wrap { width: 48px; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.rel-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s var(--ease-out); }
+.rel-num { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; min-width: 28px; text-align: right; }
+.card-title { font-family: 'Instrument Serif', serif; font-size: 18px; line-height: 1.3; color: var(--text-1); margin-bottom: 9px; letter-spacing: -0.2px; }
+.card-summary { font-size: 13.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 16px; border-left: 2px solid rgba(255,255,255,0.06); padding-left: 13px; }
+.card-insights { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 18px; }
+@media (min-width: 640px) { .card-insights { grid-template-columns: 1fr 1fr; } }
+.insight { background: rgba(255,255,255,0.028); border: 1px solid rgba(255,255,255,0.055); border-radius: 10px; padding: 10px 13px; }
+.insight.full { grid-column: 1 / -1; }
+.ins-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-3); margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+.ins-label .ins-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--card-color, var(--blue)); flex-shrink: 0; }
+.ins-text { font-size: 12.5px; color: var(--text-2); line-height: 1.55; }
+.ins-text strong { color: var(--text-1); font-weight: 600; }
+.card-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 14px; }
+.card-kpi { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px; }
+.card-kpi-val { font-family: 'Geist Mono', monospace; font-size: 15px; font-weight: 500; line-height: 1; margin-bottom: 3px; }
+.card-kpi-lbl { font-size: 10.5px; color: var(--text-3); line-height: 1.3; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 13px 22px 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.act-btn { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--border-md); border-radius: 8px; padding: 6px 12px; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; background: transparent; color: var(--text-2); transition: all 0.18s; }
+.act-btn:hover { background: rgba(255,255,255,0.04); color: var(--text-1); border-color: var(--border-hi); }
+.act-btn.btn-useful:hover,.act-btn.btn-useful.on { color: var(--green); border-color: rgba(52,211,153,0.3); background: var(--green-bg); }
+.act-btn.btn-ignore:hover { color: var(--rose); border-color: rgba(251,113,133,0.25); background: var(--rose-bg); }
+.act-btn.btn-edit:hover { color: var(--amber); border-color: rgba(251,191,36,0.3); background: var(--amber-bg); }
+.act-btn.btn-delete:hover { color: var(--rose); border-color: rgba(251,113,133,0.25); background: var(--rose-bg); }
+.act-btn.btn-dive { color: var(--blue); border-color: rgba(74,142,255,0.25); background: var(--blue-bg); font-weight: 600; }
+.act-btn.btn-dive:hover { background: rgba(74,142,255,0.15); border-color: rgba(74,142,255,0.4); box-shadow: 0 0 14px rgba(74,142,255,0.1); }
+.card-src { font-size: 11.5px; color: var(--text-3); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.15s; font-family: 'Geist Mono', monospace; }
+.card-src:hover { color: var(--blue); }
+
+/* ================================================================
+   MODAL DEEP DIVE
+   ================================================================ */
+.overlay { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-end; justify-content: center; padding: 0; background: rgba(0,0,0,0); backdrop-filter: blur(0px); pointer-events: none; transition: background 0.3s, backdrop-filter 0.3s; }
+@media (min-width: 640px) { .overlay { align-items: center; padding: 20px; } }
+.overlay.open { background: rgba(0,0,0,0.65); backdrop-filter: blur(10px) saturate(0.8); pointer-events: all; }
+.modal { background: var(--bg-raised); border: 1px solid var(--border-md); border-radius: var(--radius-xl) var(--radius-xl) 0 0; width: 100%; max-width: 660px; max-height: 90vh; overflow-y: auto; transform: translateY(100%); transition: transform 0.4s var(--ease-out); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+@media (min-width: 640px) { .modal { border-radius: var(--radius-xl); transform: translateY(20px) scale(0.96); opacity: 0; transition: transform 0.35s var(--ease-out), opacity 0.3s; max-height: 85vh; } }
+.overlay.open .modal { transform: translateY(0); }
+@media (min-width: 640px) { .overlay.open .modal { transform: translateY(0) scale(1); opacity: 1; } }
+.modal-handle { width: 36px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.12); margin: 12px auto 0; display: block; }
+@media (min-width: 640px) { .modal-handle { display: none; } }
+.modal-top { padding: 20px 26px 16px; border-bottom: 1px solid var(--border); position: relative; }
+.modal-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.modal-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.modal-close { width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.15s; flex-shrink: 0; }
+.modal-close:hover { background: rgba(255,255,255,0.09); color: var(--text-1); }
+.modal-title { font-family: 'Instrument Serif', serif; font-size: 21px; line-height: 1.3; color: var(--text-1); letter-spacing: -0.2px; }
+.modal-body { padding: 22px 26px 28px; display: flex; flex-direction: column; gap: 22px; overflow-y: auto; }
+.modal-section-title { font-size: 10px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--text-3); margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+.modal-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.modal-text { font-size: 14px; color: var(--text-2); line-height: 1.75; }
+.app-list { display: flex; flex-direction: column; gap: 7px; }
+.app-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 9px; padding: 10px 13px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.app-arrow { color: var(--modal-color, var(--blue)); font-size: 11px; margin-top: 3px; flex-shrink: 0; font-family: 'Geist Mono', monospace; }
+.steps-list { display: flex; flex-direction: column; gap: 8px; }
+.step-item { display: flex; gap: 13px; align-items: flex-start; }
+.step-num { width: 24px; height: 24px; border-radius: 7px; background: rgba(74,142,255,0.12); border: 1px solid rgba(74,142,255,0.2); color: var(--blue); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Geist Mono', monospace; }
+.step-text { font-size: 13px; color: var(--text-2); line-height: 1.55; padding-top: 4px; }
+.modal-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.modal-kpi { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.modal-kpi-val { font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 500; line-height: 1; }
+.modal-kpi-lbl { font-size: 10.5px; color: var(--text-3); line-height: 1.3; }
+
+/* ================================================================
+   EDIT MODAL
+   ================================================================ */
+.edit-overlay { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,0); backdrop-filter: blur(0px); pointer-events: none; transition: background 0.25s, backdrop-filter 0.25s; }
+.edit-overlay.open { background: rgba(0,0,0,0.72); backdrop-filter: blur(12px); pointer-events: all; }
+.edit-modal { background: var(--bg-raised); border: 1px solid var(--border-md); border-radius: var(--radius-xl); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; transform: scale(0.94) translateY(12px); opacity: 0; transition: transform 0.3s var(--ease-out), opacity 0.25s; box-shadow: var(--shadow-lg); }
+.edit-overlay.open .edit-modal { transform: scale(1) translateY(0); opacity: 1; }
+.edit-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.edit-title { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--text-1); }
+.edit-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-3); }
+.field input, .field textarea, .field select { background: rgba(255,255,255,0.04); border: 1px solid var(--border-md); border-radius: 9px; padding: 9px 12px; color: var(--text-1); font-family: 'Outfit', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: rgba(74,142,255,0.4); box-shadow: 0 0 0 3px rgba(74,142,255,0.06); }
+.field textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+.field select option { background: #0f1520; color: var(--text-1); }
+.field input[type="range"] { padding: 6px 0; background: transparent; border: none; cursor: pointer; box-shadow: none; }
+.range-label { display: flex; justify-content: space-between; }
+.range-val { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: var(--blue); }
+.edit-footer { padding: 16px 24px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+.btn-cancel { background: transparent; border: 1px solid var(--border-md); color: var(--text-2); padding: 8px 18px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.btn-cancel:hover { background: rgba(255,255,255,0.04); color: var(--text-1); }
+.btn-save { background: var(--blue); color: white; border: none; padding: 8px 22px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.18s; box-shadow: 0 2px 10px rgba(74,142,255,0.25); }
+.btn-save:hover { background: #3b82f6; box-shadow: 0 4px 16px rgba(74,142,255,0.35); }
+
+/* ================================================================
+   CONFIRM DIALOG
+   ================================================================ */
+.confirm-overlay { position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,0); pointer-events: none; transition: background 0.2s; }
+.confirm-overlay.open { background: rgba(0,0,0,0.6); pointer-events: all; }
+.confirm-box { background: var(--bg-raised); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 24px; max-width: 360px; width: 100%; box-shadow: var(--shadow-lg); transform: scale(0.92); opacity: 0; transition: transform 0.25s var(--ease-out), opacity 0.2s; text-align: center; }
+.confirm-overlay.open .confirm-box { transform: scale(1); opacity: 1; }
+.confirm-icon { font-size: 32px; margin-bottom: 12px; }
+.confirm-title { font-family: 'Instrument Serif', serif; font-size: 18px; margin-bottom: 8px; color: var(--text-1); }
+.confirm-sub { font-size: 13px; color: var(--text-2); margin-bottom: 20px; line-height: 1.5; }
+.confirm-btns { display: flex; gap: 8px; justify-content: center; }
+.btn-confirm-cancel { background: transparent; border: 1px solid var(--border-md); color: var(--text-2); padding: 8px 20px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.18s; }
+.btn-confirm-cancel:hover { background: rgba(255,255,255,0.04); color: var(--text-1); }
+.btn-confirm-ok { background: var(--rose); color: white; border: none; padding: 8px 20px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+.btn-confirm-ok:hover { background: #f43f5e; }
+.btn-confirm-ok.safe { background: var(--blue); }
+.btn-confirm-ok.safe:hover { background: #3b82f6; }
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(72px); background: var(--bg-raised); border: 1px solid var(--border-md); color: var(--text-1); padding: 9px 18px; border-radius: 100px; font-size: 12.5px; font-weight: 500; z-index: 500; transition: transform 0.35s var(--ease-out); pointer-events: none; white-space: nowrap; box-shadow: var(--shadow-md); max-width: 90vw; text-align: center; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.error { border-color: rgba(251,113,133,0.3); color: var(--rose); }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer { position: relative; z-index: 1; padding: 24px 28px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; max-width: 1320px; margin: 0 auto; }
+.footer-left { font-size: 12px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+.footer-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; color: var(--green); background: var(--green-bg); border: 1px solid rgba(52,211,153,0.18); padding: 6px 14px; border-radius: 100px; }
+
+/* ================================================================
+   SCROLLBAR & ANIMATIONS
+   ================================================================ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
+.card.filtering-out { opacity: 0; transform: scale(0.97) translateY(-6px); pointer-events: none; }
+@keyframes filter-in { from{opacity:0;transform:translateY(8px) scale(0.98)} to{opacity:1;transform:translateY(0) scale(1)} }
+.card.filter-in { animation: filter-in 0.3s var(--ease-out) both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo-mark" href="#"><div class="logo-icon">⚡</div><span class="logo-text">Pulse</span></a>
+    <div class="header-divider"></div>
+    <div class="header-sub">O feed que trabalha para você.</div>
+    <span class="version-badge">v0.3 · IA</span>
+    <div class="pulse-live"><span class="live-dot"></span>IA Conectada</div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <aside class="sidebar">
+    <div class="s-block">
+      <div class="profile-head">
+        <div class="avatar">L</div>
+        <div><div class="profile-name">Lucas</div><div class="profile-meta">Eng. Elétrica · Unicamp<br>Agibank · Proc. & Qualidade</div></div>
+      </div>
+      <div class="s-label">Objetivos Ativos</div>
+      <div class="obj-list">
+        <div class="obj-item"><span class="obj-pip" style="background:#4a8eff"></span>TCC — Data centers sustentáveis</div>
+        <div class="obj-item"><span class="obj-pip" style="background:#34d399"></span>Carreira em dados & fintechs</div>
+        <div class="obj-item"><span class="obj-pip" style="background:#a78bfa"></span>Estudos técnicos de engenharia</div>
+        <div class="obj-item"><span class="obj-pip" style="background:#fbbf24"></span>Francês — B1 → B2</div>
+        <div class="obj-item"><span class="obj-pip" style="background:#fb923c"></span>Vida prática e organização</div>
+      </div>
+      <div class="s-label" style="padding-top:6px;border-top:1px solid var(--border);">Filtrar Feed</div>
+      <div class="filter-group" id="filterGroup">
+        <button class="filter-btn active" data-filter="all"><span class="filter-emoji">◉</span>Todos<span class="filter-count" id="cnt-all">0</span></button>
+        <button class="filter-btn" data-filter="TCC"><span class="filter-emoji">⚡</span>TCC<span class="filter-count" id="cnt-TCC">0</span></button>
+        <button class="filter-btn" data-filter="Carreira"><span class="filter-emoji">📈</span>Carreira<span class="filter-count" id="cnt-Carreira">0</span></button>
+        <button class="filter-btn" data-filter="Engenharia"><span class="filter-emoji">🔬</span>Engenharia<span class="filter-count" id="cnt-Engenharia">0</span></button>
+        <button class="filter-btn" data-filter="Francês"><span class="filter-emoji">🇫🇷</span>Francês<span class="filter-count" id="cnt-Francês">0</span></button>
+        <button class="filter-btn" data-filter="Vida"><span class="filter-emoji">🗂️</span>Vida<span class="filter-count" id="cnt-Vida">0</span></button>
+        <button class="filter-btn" data-filter="Tecnologia"><span class="filter-emoji">💡</span>Tecnologia<span class="filter-count" id="cnt-Tecnologia">0</span></button>
+        <button class="filter-btn" data-filter="Dados"><span class="filter-emoji">📊</span>Dados<span class="filter-count" id="cnt-Dados">0</span></button>
+        <button class="filter-btn" data-filter="Cultura"><span class="filter-emoji">🎬</span>Cultura<span class="filter-count" id="cnt-Cultura">0</span></button>
+      </div>
+    </div>
+
+    <div class="s-block mini-stats">
+      <div class="mini-stat"><span class="mini-stat-val" id="stat-useful">0</span><span class="mini-stat-lbl">Úteis</span></div>
+      <div class="mini-stat"><span class="mini-stat-val" id="stat-total">0</span><span class="mini-stat-lbl">Cards</span></div>
+      <div class="mini-stat"><span class="mini-stat-val" id="stat-avg">—</span><span class="mini-stat-lbl">Relevância</span></div>
+      <div class="mini-stat"><span class="mini-stat-val" id="stat-ai">0</span><span class="mini-stat-lbl">Gerados por IA</span></div>
+    </div>
+
+    <div class="s-block">
+      <div class="data-tools">
+        <div class="data-tools-title">Dados & Backup</div>
+        <button class="tool-btn" id="btnExport"><span class="tool-btn-icon">⬇</span> Exportar backup JSON</button>
+        <button class="tool-btn" id="btnImportTrigger"><span class="tool-btn-icon">⬆</span> Importar backup JSON</button>
+        <input type="file" id="importFile" accept=".json">
+        <button class="tool-btn danger" id="btnReset"><span class="tool-btn-icon">↺</span> Resetar para padrão</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="feed-area">
+    <!-- TOP PRIORIDADE DO DIA -->
+    <section class="priority-section">
+      <div class="priority-header">
+        <div class="priority-eyebrow"><div class="priority-icon">🎯</div><div class="priority-title">Top Prioridade do Dia</div></div>
+        <div class="priority-date" id="todayDate">—</div>
+      </div>
+      <div class="priority-grid">
+        <div class="priority-item">
+          <div class="priority-item-num">01 · TCC</div>
+          <div class="priority-item-text">Finalizar revisão bibliográfica sobre WUE em data centers brasileiros</div>
+          <div class="priority-item-sub">Foco nas métricas PUE + WUE + CUE combinadas. Meta: 3 novos papers citados.</div>
+          <span class="priority-tag" style="background:rgba(74,142,255,0.1);color:#4a8eff;border:1px solid rgba(74,142,255,0.2);">⚡ Alta urgência</span>
+        </div>
+        <div class="priority-item">
+          <div class="priority-item-num">02 · Carreira</div>
+          <div class="priority-item-text">Publicar projeto de credit scoring no GitHub com README em inglês</div>
+          <div class="priority-item-sub">Visibilidade para recrutadores de fintechs. 30 min de trabalho focado.</div>
+          <span class="priority-tag" style="background:rgba(52,211,153,0.09);color:#34d399;border:1px solid rgba(52,211,153,0.2);">📈 Impacto direto</span>
+        </div>
+        <div class="priority-item">
+          <div class="priority-item-num">03 · Francês</div>
+          <div class="priority-item-text">15 min de shadowing com InnerFrench — Épisode sobre technologie</div>
+          <div class="priority-item-sub">Consistência diária > sessões longas ocasionais. Sem negociação.</div>
+          <span class="priority-tag" style="background:rgba(251,191,36,0.09);color:#fbbf24;border:1px solid rgba(251,191,36,0.2);">🇫🇷 Hábito diário</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INPUT COM IA -->
+    <div>
+      <div class="input-bar" id="inputBar">
+        <span class="input-icon">✦</span>
+        <input type="text" id="cardInput" placeholder="Cole um link, ideia ou tema — a IA vai analisar e gerar um card personalizado..." />
+        <button class="btn-gen" id="generateBtn">
+          <span id="btnIcon">✦</span>
+          <span id="btnLabel">Gerar com IA</span>
+        </button>
+      </div>
+      <div class="ai-mode-bar hidden" id="aiModeBar">
+        <span class="ai-dot"></span>
+        <span id="aiModeText">IA pronta — cole qualquer link ou ideia</span>
+      </div>
+    </div>
+
+    <!-- CONTROLES -->
+    <div class="feed-controls">
+      <div class="feed-counter"><strong id="visibleCount">0</strong> cards visíveis</div>
+      <div class="ctrl-group">
+        <button class="ctrl-btn active" id="sortRel">↓ Relevância</button>
+        <button class="ctrl-btn" id="sortChron">↕ Ordem</button>
+      </div>
+    </div>
+
+    <!-- LISTA DE CARDS -->
+    <div class="feed-list" id="feedList"></div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">pulse/v0.3 · IA via Netlify Functions · localStorage persistência</div>
+  <div class="footer-pill">✓ IA conectada · RSS e sync em breve</div>
+</footer>
+
+<!-- MODAIS -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <span class="modal-handle"></span>
+    <div class="modal-top">
+      <div class="modal-accent-bar" id="modalAccentBar"></div>
+      <div class="modal-meta"><div class="cat-chip" id="modalCat"></div><button class="modal-close" id="modalClose">✕</button></div>
+      <div class="modal-title" id="modalTitle">—</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="edit-overlay" id="editOverlay">
+  <div class="edit-modal">
+    <div class="edit-header"><div class="edit-title" id="editTitle">Editar card</div><button class="modal-close" id="editClose">✕</button></div>
+    <div class="edit-body">
+      <div class="field"><label>Título</label><input type="text" id="ef-title" placeholder="Título do card" /></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Categoria</label>
+          <select id="ef-category">
+            <option value="TCC">⚡ TCC</option>
+            <option value="Carreira">📈 Carreira</option>
+            <option value="Engenharia">🔬 Engenharia</option>
+            <option value="Tecnologia">💡 Tecnologia</option>
+            <option value="Dados">📊 Dados</option>
+            <option value="Francês">🇫🇷 Francês</option>
+            <option value="Vida">🗂️ Vida</option>
+            <option value="Cultura">🎬 Cultura</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Relevância</label>
+          <div class="range-label"><span style="font-size:11px;color:var(--text-3)">1.0</span><span class="range-val" id="ef-rel-val">8.0</span><span style="font-size:11px;color:var(--text-3)">10.0</span></div>
+          <input type="range" id="ef-relevance" min="1" max="10" step="0.1" value="8" />
+        </div>
+      </div>
+      <div class="field"><label>Resumo</label><textarea id="ef-summary" rows="3" placeholder="Resumo do conteúdo..."></textarea></div>
+      <div class="field"><label>Por que importa para você</label><textarea id="ef-why" rows="2" placeholder="Relevância pessoal..."></textarea></div>
+      <div class="field"><label>Conexão com objetivos</label><input type="text" id="ef-connection" placeholder="ex: TCC · carreira · dados" /></div>
+      <div class="field"><label>Ação sugerida</label><textarea id="ef-action" rows="2" placeholder="O que fazer com esse conteúdo?"></textarea></div>
+      <div class="field"><label>URL da fonte</label><input type="text" id="ef-source" placeholder="https://..." /></div>
+      <div class="field"><label>Deep Dive — Contexto expandido</label><textarea id="ef-deepExpanded" rows="3" placeholder="Contexto mais detalhado..."></textarea></div>
+    </div>
+    <div class="edit-footer"><button class="btn-cancel" id="editCancel">Cancelar</button><button class="btn-save" id="editSave">Salvar alterações</button></div>
+  </div>
+</div>
+
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon" id="confirmIcon">⚠️</div>
+    <div class="confirm-title" id="confirmTitle">Tem certeza?</div>
+    <div class="confirm-sub" id="confirmSub">Esta ação não pode ser desfeita.</div>
+    <div class="confirm-btns"><button class="btn-confirm-cancel" id="confirmCancel">Cancelar</button><button class="btn-confirm-ok" id="confirmOk">Confirmar</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+// ============================================================
+//  CONFIGURAÇÃO DE CATEGORIAS
+// ============================================================
+const CAT = {
+  TCC:        { color: '#4a8eff', bg: 'rgba(74,142,255,0.1)',   border: 'rgba(74,142,255,0.22)',  emoji: '⚡' },
+  Carreira:   { color: '#34d399', bg: 'rgba(52,211,153,0.09)',  border: 'rgba(52,211,153,0.22)',  emoji: '📈' },
+  Engenharia: { color: '#a78bfa', bg: 'rgba(167,139,250,0.09)', border: 'rgba(167,139,250,0.22)', emoji: '🔬' },
+  Tecnologia: { color: '#22d3ee', bg: 'rgba(34,211,238,0.08)',  border: 'rgba(34,211,238,0.2)',   emoji: '💡' },
+  Dados:      { color: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.2)',  emoji: '📊' },
+  Francês:    { color: '#fbbf24', bg: 'rgba(251,191,36,0.09)',  border: 'rgba(251,191,36,0.22)',  emoji: '🇫🇷' },
+  Vida:       { color: '#fb923c', bg: 'rgba(251,146,60,0.09)',  border: 'rgba(251,146,60,0.22)',  emoji: '🗂️' },
+  Cultura:    { color: '#818cf8', bg: 'rgba(129,140,248,0.09)', border: 'rgba(129,140,248,0.2)',  emoji: '🎬' },
+};
+
+// ── Fallback de keyword para quando IA falhar ─────────────
+const KEYWORD_RULES = [
+  { keys:['data center','datacenter','pue','wue','cue','refrigeração','cooling'], category:'TCC', rel:()=>+(8.5+Math.random()).toFixed(1), why:'Conecta ao TCC sobre data centers sustentáveis.', conn:'TCC · eficiência energética', action:'Identificar seção relevante no TCC e adicionar à revisão.' },
+  { keys:['crédito','credit','fintech','scoring','inadimplência','risco'], category:'Carreira', rel:()=>+(8.0+Math.random()).toFixed(1), why:'Alinha com objetivo de trabalhar com crédito em fintechs.', conn:'Carreira · crédito · Agibank', action:'Avaliar como fortalece o portfólio para fintechs.' },
+  { keys:['python','sql','machine learning','ml','pandas','tensorflow','scikit'], category:'Tecnologia', rel:()=>+(7.8+Math.random()).toFixed(1), why:'Ferramenta essencial para o perfil de dados.', conn:'Carreira · dados · portfólio', action:'Praticar com mini-projeto e documentar no GitHub.' },
+  { keys:['energia','solar','eólica','grid','aneel','ccee','sustentável'], category:'Engenharia', rel:()=>+(8.0+Math.random()*1.5).toFixed(1), why:'Interseção entre formação em Eng. Elétrica e TCC.', conn:'Engenharia · TCC · energia', action:'Verificar aproveitamento no TCC. Salvar no Zotero.' },
+  { keys:['francês','french','français','anki','innerfrench','b1','b2'], category:'Francês', rel:()=>+(7.0+Math.random()*2).toFixed(1), why:'Recurso para avançar no francês B1→B2.', conn:'Francês · fluência', action:'Integrar ao ciclo de estudo diário.' },
+  { keys:['organização','produtividade','notion','hábito','rotina','pomodoro'], category:'Vida', rel:()=>+(7.0+Math.random()*2).toFixed(1), why:'Ganho de sistema com impacto direto na gestão TCC + trabalho.', conn:'Vida · produtividade', action:'Implementar por 7 dias e avaliar impacto.' },
+  { keys:['dados','dataset','análise','visualização','kaggle','notebook'], category:'Dados', rel:()=>+(7.5+Math.random()*2).toFixed(1), why:'Fortalece portfólio de dados e análise.', conn:'Dados · carreira · portfólio', action:'Explorar o dataset e criar uma análise rápida.' },
+];
+
+function localFallback(text) {
+  const lower = text.toLowerCase();
+  const rule  = KEYWORD_RULES.find(r => r.keys.some(k => lower.includes(k)));
+  const cat   = rule ? rule.category : 'Tecnologia';
+  const cfg   = CAT[cat];
+  const isUrl = text.startsWith('http://') || text.startsWith('https://');
+  const title = isUrl
+    ? 'Recurso externo: ' + text.replace(/https?:\/\//, '').split('/')[0]
+    : text.length > 100 ? text.slice(0, 97) + '…' : text;
+
+  return {
+    id: Date.now(),
+    category: cat,
+    relevance: rule ? rule.rel() : parseFloat((6.5 + Math.random() * 2).toFixed(1)),
+    status: 'active',
+    generatedByAI: false,
+    generated: true,
+    createdAt: new Date().toISOString(),
+    title,
+    summary: `Card gerado localmente (IA indisponível) a partir de: "${text.slice(0,80)}". Edite os campos abaixo para refinar.`,
+    whyItMatters: rule ? rule.why : 'Avalie a conexão com seus objetivos atuais.',
+    connection:   rule ? rule.conn : 'Adicionado manualmente',
+    suggestedAction: rule ? rule.action : 'Pesquisar fontes primárias e decidir se vira projeto ativo.',
+    sourceUrl: isUrl ? text : '',
+    kpis: null,
+    deepDiveContent: {
+      expanded: `Card gerado localmente: "${text.slice(0,120)}". Com a IA ativa, este conteúdo seria expandido com análise personalizada para o perfil do Lucas.`,
+      applications: ['Pesquisar fontes primárias: Google Scholar, arXiv, IEEE Xplore','Avaliar conexão com TCC, carreira ou objetivos pessoais','Decidir se transforma em projeto ativo no sistema PARA'],
+      steps: ['Buscar no Google Scholar para encontrar papers recentes','Salvar referências no Zotero ou Notion','Editar este card para refinar os campos']
+    }
+  };
+}
+
+// ============================================================
+//  DADOS PADRÃO (mockados)
+// ============================================================
+function getDefaultCards() {
+  return [
+    { id:1, category:'TCC', relevance:9.6, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:00:00.000Z', title:'Consumo de água em data centers de IA ultrapassa 1 trilhão de litros em 2024', summary:'Modelos de linguagem como GPT-4 consomem volumes críticos de água para resfriamento evaporativo. O WUE médio de data centers de hiperescala chegou a 1,8 L/kWh — número alarmante para regiões com escassez hídrica como partes do Brasil.', whyItMatters:'Dado primário para embasar a seção de métricas do TCC. Coloca WUE no centro da discussão de sustentabilidade.', connection:'TCC · WUE · impactos territoriais · Brasil', suggestedAction:'Levantar WUE de data centers declarados no Brasil via ANATEL e comparar com benchmark global.', sourceUrl:'#', kpis:[{val:'1.8 L/kWh',lbl:'WUE médio hiperescala'},{val:'~700 ml',lbl:'Água/conversa ChatGPT'},{val:'2030',lbl:'Meta 1.0 L/kWh Google'}], deepDiveContent:{ expanded:'Pesquisador Shaolei Ren (UC Riverside) estimou que treinar GPT-3 consumiu 700 mil litros de água potável. Em operação, o ChatGPT gasta entre 500 ml e 1 L por sessão. O Brasil, com pressão hídrica em bacias como Paraíba do Sul e no Nordeste, não exige reportagem de WUE nas licenças ambientais — lacuna regulatória relevante ao TCC.', applications:['Comparar WUE de cooling towers vs. adiabático vs. free cooling em clima tropical úmido','Quantificar impacto hídrico de um data center de 10 MW instalado na RMC (Campinas)','Propor índice composto PUE×WUE×CUE como métrica unificada'], steps:['Baixar "Making AI Less Thirsty" — Ren et al. 2023 (arXiv:2304.03271)','Consultar Atlas de Vulnerabilidade Hídrica (ANA)','Incluir WUE na metodologia do TCC como KPI secundário ao PUE'] } },
+    { id:2, category:'TCC', relevance:9.2, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:01:00.000Z', title:'Direct Liquid Cooling reduz PUE a 1,02 e abre oportunidade de reaproveitamento térmico', summary:'DLC e imersão bifásica eliminam chillers centralizados, reduzindo consumo energético em até 40%. O calor residual pode alimentar redes de district heating — modelo circular relevante para o Brasil.', whyItMatters:'Tecnologia central para a proposta de eficiência energética do TCC. Reduz PUE e CUE simultaneamente.', connection:'TCC · PUE · refrigeração · eficiência energética', suggestedAction:'Calcular payback energético de DLC vs. ar-condicionado para data center hipotético de 1 MW em SP.', sourceUrl:'#', kpis:[{val:'1.02',lbl:'PUE com imersão bifásica'},{val:'40%',lbl:'Redução consumo'},{val:'3–5 anos',lbl:'ROI estimado DLC'}], deepDiveContent:{ expanded:'DLC opera com cold plates acoplados aos processadores, circulando água a 40–60 °C. A imersão bifásica usa fluido dielétrico que evapora ao toque do chip. O calor residual a 60–80 °C é suficiente para aquecimento distrital.', applications:['Modelar TCO de data center 1 MW com DLC vs. CRAC por 10 anos','Avaliar viabilidade de district heating em campus universitário','Comparar CUE com mix energético da grid SP vs. renovável on-site'], steps:['Baixar whitepaper Green Grid "Liquid Cooling Guidelines"','Usar PUE Calculator do Uptime Institute','Adicionar capítulo de reaproveitamento térmico ao TCC'] } },
+    { id:3, category:'Carreira', relevance:8.9, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:02:00.000Z', title:'Nubank, C6 e Inter abrem vagas para modelagem de risco de crédito com ML', summary:'As maiores fintechs brasileiras buscam perfis com Python, SQL e experiência em portfólios de crédito. O diferencial: entender o negócio de crédito e traduzir resultados em decisões de política.', whyItMatters:'Intersecção exata do seu perfil: engenharia + dados + contexto de processos (Agibank) + interesse em crédito.', connection:'Carreira · crédito · fintechs · Python · ML', suggestedAction:'Construir projeto de credit scoring com dados públicos + documentação em inglês + deploy no Hugging Face.', sourceUrl:'#', kpis:[{val:'R$12k',lbl:'Faixa pleno fintechs'},{val:'3 etapas',lbl:'Processo seletivo médio'},{val:'87%',lbl:'Vagas com Python req.'}], deepDiveContent:{ expanded:'O Nubank usa XGBoost e LightGBM para scoring de pessoa física com feature engineering de dados comportamentais. O Agibank, onde você trabalha, é referência em crédito para desbancarizados — um diferencial raro em candidaturas.', applications:['Criar dataset de credit scoring com dados do UCI ML Repository','Implementar pipeline: EDA → XGBoost → SHAP explanations','Escrever README em inglês descrevendo decisões de negócio'], steps:['Configurar projeto no GitHub com estrutura profissional (src, notebooks, data)','Treinar modelo e gerar relatório de fairness','Publicar no LinkedIn com thread explicando a lógica de crédito'] } },
+    { id:4, category:'Engenharia', relevance:8.5, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:03:00.000Z', title:'LSTM supera ARIMA em 12% para previsão de carga em microgrids com alta penetração solar', summary:'Estudo na IEEE Transactions on Power Systems compara modelos de séries temporais. Redes LSTM com janela de 24h superam métodos clássicos em cenários de alta variabilidade de geração renovável.', whyItMatters:'Une engenharia elétrica e dados. Metodologia aplicável à modelagem de consumo energético de data centers no TCC.', connection:'TCC · engenharia elétrica · séries temporais · dados', suggestedAction:'Replicar o modelo LSTM em Python com dados da CCEE e publicar no GitHub.', sourceUrl:'#', kpis:[{val:'12%',lbl:'MAPE menor vs. ARIMA'},{val:'24h',lbl:'Janela look-back ótima'},{val:'15',lbl:'Microgrids no estudo'}], deepDiveContent:{ expanded:'Arquitetura: 2 camadas LSTM (64 e 32 unidades) + dropout 0.2 + Dense output. Dataset: 15 microgrids europeus com resolução de 15 min por 2 anos. O LSTM captura dependências de longo prazo que o ARIMA perde.', applications:['Modelar consumo horário de data center como função de temperatura + carga de TI','Gerar curva de PUE dinâmico ao longo do ano','Usar previsão de carga para otimização de compra de energia'], steps:['Acessar dados horários no OpenDataANEEL','Replicar LSTM com TensorFlow/Keras','Adicionar temperatura como variável exógena via INMET'] } },
+    { id:5, category:'Tecnologia', relevance:8.2, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:04:00.000Z', title:'Prefect 2.x: orquestração de workflows Python com curva de aprendizado 10x menor que Airflow', summary:'Alternativa moderna ao Apache Airflow. Com @flow e @task, transformar scripts Python em workflows monitorados leva minutos. Cloud free com 10k execuções/mês.', whyItMatters:'Aplicável ao trabalho de processos e qualidade no Agibank. Pode eliminar horas de trabalho manual repetitivo.', connection:'Carreira · automação · processos Agibank · engenharia de dados', suggestedAction:'Pegar 1 script Python do trabalho e transformar em flow Prefect com alerta por e-mail.', sourceUrl:'#', kpis:[{val:'10k',lbl:'Execuções/mês gratuitas'},{val:'< 5 min',lbl:'Setup inicial'},{val:'3 linhas',lbl:'Para converter script'}], deepDiveContent:{ expanded:'A conversão é literal: adicione @flow na função principal e @task nas subfunções. O Prefect UI local mostra logs, status e histórico em tempo real. Para o Agibank: automatize relatórios de qualidade, alertas de threshold e orquestração de scripts manuais.', applications:['Automatizar relatório semanal de KPIs com envio por e-mail/Teams','Criar pipeline de ingestão com alerta de anomalia','Montar portfólio de "Engenharia de Dados + Processos"'], steps:['pip install prefect && prefect server start','Converter script existente com @flow e @task','Agendar com IntervalSchedule'] } },
+    { id:6, category:'Francês', relevance:7.9, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:05:00.000Z', title:'Shadowing ativo: como poliglotas atingem fluência em 6 meses sem aulas formais', summary:'Repetir simultaneamente o áudio nativo em voz alta desenvolve prosódia, velocidade e automatismo lexical muito mais rápido que métodos passivos. Ganhos mensuráveis em 3 semanas de 15 min/dia.', whyItMatters:'Maior retorno por tempo investido para avançar no francês B1→B2 sem depender de horários fixos.', connection:'Francês · hábito diário · progressão B1→B2', suggestedAction:'Assinar transcrições gratuitas do InnerFrench e iniciar shadowing por 15 min nas manhãs por 21 dias.', sourceUrl:'#', kpis:[{val:'15 min',lbl:'Sessão diária mínima'},{val:'21 dias',lbl:'Para formar hábito'},{val:'B2',lbl:'Meta em 6 meses'}], deepDiveContent:{ expanded:'Arguelles sistematizou em 3 fases: (1) walking shadowing, (2) shadowing with text, (3) pure shadowing. InnerFrench (Hugo Cotton) tem episódios de 20 min com transcrição gratuita, velocidade natural mas vocabulário controlado.', applications:['Usar InnerFrench episódios sobre tecnologia para vocabulário técnico','Criar deck Anki com termos de engenharia em francês','Praticar durante trajeto — shadowing funciona em movimento'], steps:['Criar conta em innerfrench.com e baixar transcrição do Ep. 1','Instalar Anki com deck "French B1-B2 Vocabulary"','Gravar 30s de shadowing e ouvir de volta'] } },
+    { id:7, category:'Vida', relevance:7.6, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:06:00.000Z', title:'Sistema PARA: organização digital para quem gerencia TCC, trabalho e projetos simultâneos', summary:'Framework PARA (Projects, Areas, Resources, Archives) de Tiago Forte: organizar por onde você vai usar, não por tema. Ideal para múltiplos contextos simultâneos.', whyItMatters:'Você gerencia TCC, Agibank, francês, carreira e vida pessoal ao mesmo tempo. PARA foi feito exatamente para esse perfil.', connection:'Vida prática · TCC · produtividade · organização', suggestedAction:'Dedicar 45 minutos para criar a estrutura PARA no Notion/Drive e mover os 20 arquivos mais usados.', sourceUrl:'#', kpis:[{val:'4',lbl:'Categorias do sistema'},{val:'< 1h',lbl:'Setup inicial'},{val:'0',lbl:'Regras para decorar'}], deepDiveContent:{ expanded:'Projects (deadline — TCC, vaga), Areas (contínuo — Agibank, saúde), Resources (interesse — energia, ML), Archives (inativo). Regra de ouro: cada arquivo em um único lugar.', applications:['Criar estrutura PARA no Notion com templates de projeto para o TCC','Configurar inbox único para capturar links antes de classificar','Usar Projects como lista de resultados ativos — máximo 5 simultâneos'], steps:['Criar 4 pastas: 1 Projects, 2 Areas, 3 Resources, 4 Archives','Mover arquivos do TCC para "1 Projects/TCC [data defesa]"','Ler "The PARA Method" em fortelabs.com (20 min, gratuito)'] } },
+    { id:8, category:'Tecnologia', relevance:7.3, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:07:00.000Z', title:'F1 Telemetry com FastF1: acessando 300 sensores reais por corrida com Python', summary:'FastF1 acessa dados históricos oficiais da F1 gratuitamente — trajetória GPS, velocidade, pressão de freio, temperatura de pneu, DRS, ERS. Até 3 GB de dados por corrida a 100 Hz.', whyItMatters:'Caso de uso técnico de engenharia de dados em tempo real com alto apelo visual para portfólio.', connection:'Tecnologia · dados em tempo real · portfólio · engenharia', suggestedAction:'Rodar FastF1 e reproduzir análise de trajetória de volta rápida. Publicar no LinkedIn.', sourceUrl:'#', kpis:[{val:'300+',lbl:'Sensores por carro'},{val:'100 Hz',lbl:'Frequência de coleta'},{val:'3 GB',lbl:'Dados por corrida'}], deepDiveContent:{ expanded:'FastF1 expõe dados da Ergast API + telemetria oficial da F1: posição X/Y por milissegundo, velocidade, RPM, throttle %, brake %, temperatura de pneus. A AWS é parceira cloud da F1 para processamento em tempo real.', applications:['Comparar braking point de pilotos em Interlagos 2024','Analisar degradação de pneus ao longo de um stint','Criar dashboard interativo com Plotly/Dash'], steps:['pip install fastf1 matplotlib pandas','Reproduzir exemplo "Fastest Lap Gear Shift" da documentação','Escolher GP do Brasil 2024 — contexto local aumenta engajamento no LinkedIn'] } }
+  ];
+}
+
+// ============================================================
+//  PERSISTÊNCIA — localStorage
+// ============================================================
+const LS_KEY = 'pulse_v3_cards';
+
+function saveCards() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state.cards)); }
+  catch(e) { showToast('⚠️ Erro ao salvar no localStorage.'); }
+}
+
+function loadCards() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) {
+      // Migra do v0.2 se existir
+      const v2 = localStorage.getItem('pulse_v2_cards');
+      if (v2) return JSON.parse(v2);
+    }
+    if (raw) { const p = JSON.parse(raw); if (Array.isArray(p) && p.length > 0) return p; }
+  } catch(e) {}
+  return null;
+}
+
+// ============================================================
+//  ESTADO
+// ============================================================
+const state = {
+  cards: [],
+  filter: 'all',
+  sortByRelevance: true
+};
+
+// ============================================================
+//  UTILS
+// ============================================================
+function scoreColor(r) {
+  if (r >= 9.5) return '#34d399';
+  if (r >= 8.5) return '#4a8eff';
+  if (r >= 7.5) return '#fbbf24';
+  return '#fb923c';
+}
+
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), type === 'error' ? 5000 : 3000);
+}
+
+function updateStats() {
+  const active  = state.cards.filter(c => c.status !== 'ignored');
+  const useful  = state.cards.filter(c => c.status === 'useful').length;
+  const aiCards = state.cards.filter(c => c.generatedByAI).length;
+  const avgRel  = active.length > 0
+    ? (active.reduce((s, c) => s + c.relevance, 0) / active.length).toFixed(1) : '—';
+  document.getElementById('stat-useful').textContent = useful;
+  document.getElementById('stat-total').textContent  = active.length;
+  document.getElementById('stat-avg').textContent    = avgRel;
+  document.getElementById('stat-ai').textContent     = aiCards;
+}
+
+function updateCounts() {
+  const active = state.cards.filter(c => c.status !== 'ignored');
+  document.getElementById('cnt-all').textContent = active.length;
+  Object.keys(CAT).forEach(cat => {
+    const el = document.getElementById('cnt-' + cat);
+    if (el) el.textContent = active.filter(c => c.category === cat).length;
+  });
+}
+
+(function setDate() {
+  const d = new Date();
+  document.getElementById('todayDate').textContent = d.toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'short' });
+})();
+
+// ============================================================
+//  NORMALIZAR CARD VINDO DA IA
+//  Mapeia os campos retornados pela função Netlify para o
+//  esquema interno do Pulse (compatível com edição/export)
+// ============================================================
+function normalizeAICard(raw, inputText) {
+  const dd = raw.deepDiveContent || {};
+
+  // Divide campos do deepDive que a IA retorna como string separada por |
+  const toArray = (str) =>
+    typeof str === 'string'
+      ? str.split('|').map(s => s.trim()).filter(Boolean)
+      : Array.isArray(str) ? str : [];
+
+  return {
+    id:            Date.now(),
+    category:      raw.category       || 'Tecnologia',
+    relevance:     parseFloat(raw.relevance) || 7.5,
+    status:        'active',
+    generatedByAI: true,
+    generated:     true,
+    createdAt:     new Date().toISOString(),
+    title:         raw.title          || inputText.slice(0, 100),
+    summary:       raw.summary        || '',
+    whyItMatters:  raw.whyItMatters   || '',
+    connection:    raw.connection     || '',
+    suggestedAction: raw.suggestedAction || '',
+    sourceUrl:     raw.sourceUrl      || '',
+    kpis:          null,
+    deepDiveContent: {
+      expanded:     dd.expandedSummary   || raw.summary || '',
+      howToUse:     dd.howToUse          || '',
+      applications: toArray(dd.practicalApplications),
+      steps:        toArray(dd.nextSteps),
+    }
+  };
+}
+
+// ============================================================
+//  RENDERIZAÇÃO DO CARD
+// ============================================================
+function buildCard(card) {
+  const cfg = CAT[card.category] || { color:'#4a8eff', bg:'rgba(74,142,255,0.1)', border:'rgba(74,142,255,0.22)', emoji:'◉' };
+  const sc   = scoreColor(card.relevance);
+  const fill = Math.round((card.relevance / 10) * 100);
+  const isIgnored = card.status === 'ignored';
+  const isUseful  = card.status === 'useful';
+
+  const el = document.createElement('div');
+  el.className = 'card'
+    + (isUseful  ? ' state-useful'         : '')
+    + (isIgnored ? ' state-ignored'        : '')
+    + (card.generatedByAI ? ' state-generated' : card.generated ? ' state-generated-local' : '');
+  el.dataset.id  = card.id;
+  el.dataset.cat = card.category;
+  el.style.setProperty('--card-color', cfg.color);
+
+  const kpisHtml = card.kpis ? `
+    <div class="card-kpis">${card.kpis.map(k=>`
+      <div class="card-kpi">
+        <div class="card-kpi-val" style="color:${cfg.color}">${k.val}</div>
+        <div class="card-kpi-lbl">${k.lbl}</div>
+      </div>`).join('')}
+    </div>` : '';
+
+  const tsHtml = card.createdAt
+    ? `<span style="font-size:10px;color:var(--text-3);font-family:'Geist Mono',monospace;">${new Date(card.createdAt).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'})}</span>`
+    : '';
+
+  const sourceChip = card.generatedByAI
+    ? '<span class="ai-chip">✦ IA</span>'
+    : card.generated
+      ? '<span class="local-chip">⚡ local</span>'
+      : '';
+
+  el.innerHTML = `
+    <div class="card-accent-bar"></div>
+    <div class="card-body">
+      <div class="card-row1">
+        <div class="card-left-meta">
+          <span class="cat-chip" style="color:${cfg.color};background:${cfg.bg};border-color:${cfg.border};">${cfg.emoji} ${card.category}</span>
+          ${sourceChip}
+          ${tsHtml}
+        </div>
+        <div class="rel-score">
+          <div class="rel-bar-wrap"><div class="rel-bar-fill" style="width:${fill}%;background:${sc};"></div></div>
+          <span class="rel-num" style="color:${sc};">${card.relevance.toFixed(1)}</span>
+        </div>
+      </div>
+      <div class="card-title">${escHtml(card.title)}</div>
+      <div class="card-summary">${escHtml(card.summary)}</div>
+      ${kpisHtml}
+      <div class="card-insights">
+        <div class="insight">
+          <div class="ins-label"><span class="ins-dot"></span>Por que importa</div>
+          <div class="ins-text">${escHtml(card.whyItMatters || '')}</div>
+        </div>
+        <div class="insight">
+          <div class="ins-label"><span class="ins-dot"></span>Conexão com objetivos</div>
+          <div class="ins-text">${escHtml(card.connection || '')}</div>
+        </div>
+        <div class="insight full">
+          <div class="ins-label"><span class="ins-dot"></span>Ação sugerida</div>
+          <div class="ins-text"><strong>${escHtml(card.suggestedAction || '')}</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="card-actions">
+        <button class="act-btn btn-useful ${isUseful?'on':''}" data-action="useful" data-id="${card.id}">${isUseful?'✓ Útil':'👍 Útil'}</button>
+        <button class="act-btn btn-ignore" data-action="ignore" data-id="${card.id}">✕ Ignorar</button>
+        <button class="act-btn btn-edit" data-action="edit" data-id="${card.id}">✏️ Editar</button>
+        <button class="act-btn btn-delete" data-action="delete" data-id="${card.id}">🗑</button>
+        <button class="act-btn btn-dive" data-action="dive" data-id="${card.id}">🔍 Deep Dive</button>
+      </div>
+      <a class="card-src" href="${card.sourceUrl||'#'}" target="_blank" rel="noopener">↗ fonte</a>
+    </div>`;
+  return el;
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============================================================
+//  RENDER FEED
+// ============================================================
+function renderFeed(animated = false) {
+  const list = document.getElementById('feedList');
+  let cards = state.cards.filter(c =>
+    c.status !== 'ignored' && (state.filter === 'all' || c.category === state.filter)
+  );
+  if (state.sortByRelevance) cards = [...cards].sort((a,b) => b.relevance - a.relevance);
+  const ignored = state.cards.filter(c =>
+    c.status === 'ignored' && (state.filter === 'all' || c.category === state.filter)
+  );
+  const doRender = () => {
+    list.innerHTML = '';
+    cards.forEach((card, i) => {
+      const el = buildCard(card);
+      if (animated) { el.classList.add('filter-in'); el.style.animationDelay = (i*45)+'ms'; }
+      else { el.style.animationDelay = (i*55)+'ms'; }
+      list.appendChild(el);
+    });
+    ignored.forEach(card => list.appendChild(buildCard(card)));
+  };
+  if (animated && list.children.length > 0) {
+    [...list.children].forEach(el => el.classList.add('filtering-out'));
+    setTimeout(doRender, 180);
+  } else { doRender(); }
+  document.getElementById('visibleCount').textContent = cards.length;
+  updateCounts(); updateStats();
+}
+
+// ============================================================
+//  EVENTOS DO FEED
+// ============================================================
+document.getElementById('feedList').addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const id     = parseInt(btn.dataset.id);
+  const action = btn.dataset.action;
+  const card   = state.cards.find(c => c.id === id);
+  if (!card) return;
+
+  if (action === 'useful') {
+    card.status = card.status === 'useful' ? 'active' : 'useful';
+    saveCards();
+    showToast(card.status === 'useful' ? '✓ Marcado como útil' : 'Marcação removida');
+    renderFeed();
+  }
+  if (action === 'ignore') {
+    card.status = 'ignored'; saveCards();
+    showToast('Card ocultado do feed.'); renderFeed(true);
+  }
+  if (action === 'dive') openDiveModal(card);
+  if (action === 'edit') openEditModal(card);
+  if (action === 'delete') {
+    openConfirm({
+      icon:'🗑️', title:'Excluir card?',
+      sub:`"${card.title.slice(0,55)}…" será removido permanentemente.`,
+      okLabel:'Excluir', okClass:'',
+      onOk:() => {
+        state.cards = state.cards.filter(c => c.id !== id);
+        saveCards(); showToast('Card excluído.'); renderFeed(true);
+      }
+    });
+  }
+});
+
+// ============================================================
+//  FILTROS
+// ============================================================
+document.getElementById('filterGroup').addEventListener('click', function(e) {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.filter = btn.dataset.filter;
+  renderFeed(true);
+});
+
+// ============================================================
+//  ORDENAÇÃO
+// ============================================================
+document.getElementById('sortRel').addEventListener('click', function() {
+  state.sortByRelevance = true; this.classList.add('active');
+  document.getElementById('sortChron').classList.remove('active'); renderFeed(true);
+});
+document.getElementById('sortChron').addEventListener('click', function() {
+  state.sortByRelevance = false; this.classList.add('active');
+  document.getElementById('sortRel').classList.remove('active'); renderFeed(true);
+});
+
+// ============================================================
+//  GERAÇÃO COM IA — função principal
+// ============================================================
+const btnGen   = document.getElementById('generateBtn');
+const btnIcon  = document.getElementById('btnIcon');
+const btnLabel = document.getElementById('btnLabel');
+const inputEl  = document.getElementById('cardInput');
+const inputBar = document.getElementById('inputBar');
+const aiBar    = document.getElementById('aiModeBar');
+const aiText   = document.getElementById('aiModeText');
+
+// Mostrar barra de status da IA ao focar
+inputEl.addEventListener('focus', () => {
+  aiBar.classList.remove('hidden');
+  aiText.textContent = 'IA pronta — cole qualquer link, artigo, ideia ou tema';
+});
+inputEl.addEventListener('blur', () => {
+  if (!inputEl.value.trim()) aiBar.classList.add('hidden');
+});
+
+function setLoadingState(isLoading) {
+  btnGen.disabled = isLoading;
+  inputEl.disabled = isLoading;
+  if (isLoading) {
+    btnGen.classList.add('state-loading');
+    btnIcon.innerHTML = '<span class="spinner"></span>';
+    btnLabel.textContent = 'Analisando…';
+    inputBar.classList.add('loading');
+    aiBar.classList.remove('hidden', 'fallback');
+    aiText.textContent = '✦ IA analisando o conteúdo para o perfil do Lucas…';
+  } else {
+    btnGen.classList.remove('state-loading', 'state-error');
+    btnIcon.textContent = '✦';
+    btnLabel.textContent = 'Gerar com IA';
+    inputBar.classList.remove('loading');
+    inputEl.disabled = false;
+  }
+}
+
+document.getElementById('generateBtn').addEventListener('click', generateWithAI);
+inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !btnGen.disabled) generateWithAI(); });
+
+async function generateWithAI() {
+  const text = inputEl.value.trim();
+  if (!text) { inputEl.focus(); return; }
+
+  setLoadingState(true);
+
+  try {
+    // ── Chama a Netlify Function ───────────────────────────
+    const res = await fetch('/.netlify/functions/generate-card', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ input: text }),
+    });
+
+    // Timeout de rede já é gerenciado pelo fetch nativo
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      throw new Error(data.error || `Erro HTTP ${res.status}`);
+    }
+
+    // Sucesso — normaliza e salva o card
+    const newCard = normalizeAICard(data.card, text);
+    state.cards.unshift(newCard);
+    saveCards();
+    inputEl.value = '';
+    renderFeed(true);
+
+    // Feedback visual de sucesso
+    aiBar.classList.remove('hidden', 'fallback');
+    aiText.textContent = `✓ Card gerado por IA · categoria "${newCard.category}" · relevância ${newCard.relevance.toFixed(1)}`;
+    showToast(`✦ Card criado por IA — "${newCard.title.slice(0,45)}…"`);
+
+  } catch (err) {
+    console.warn('[Pulse] Falha na IA:', err.message);
+
+    // ── Fallback local ─────────────────────────────────────
+    const newCard = localFallback(text);
+    state.cards.unshift(newCard);
+    saveCards();
+    inputEl.value = '';
+    renderFeed(true);
+
+    // Feedback de fallback
+    aiBar.classList.remove('hidden');
+    aiBar.classList.add('fallback');
+    aiText.textContent = '⚠ IA indisponível — card gerado localmente com classificação básica';
+
+    // Mensagem de erro amigável
+    const friendlyMsg = err.message.includes('Failed to fetch')
+      ? '⚠ Sem conexão com a função. Card salvo localmente como fallback.'
+      : `⚠ IA: ${err.message.slice(0,60)}. Card salvo localmente.`;
+    showToast(friendlyMsg, 'error');
+
+    // Destaca o botão como erro brevemente
+    btnGen.classList.add('state-error');
+    setTimeout(() => btnGen.classList.remove('state-error'), 3000);
+  } finally {
+    setLoadingState(false);
+  }
+}
+
+// ============================================================
+//  MODAL DE DEEP DIVE
+// ============================================================
+function openDiveModal(card) {
+  const cfg = CAT[card.category] || { color:'#4a8eff', bg:'rgba(74,142,255,0.1)', border:'rgba(74,142,255,0.22)', emoji:'◉' };
+  const dd  = card.deepDiveContent || {};
+
+  document.getElementById('modalAccentBar').style.background = `linear-gradient(90deg, ${cfg.color}, transparent 70%)`;
+  const catEl = document.getElementById('modalCat');
+  catEl.textContent = cfg.emoji + ' ' + card.category;
+  catEl.className   = 'cat-chip';
+  catEl.style.cssText = `color:${cfg.color};background:${cfg.bg};border:1px solid ${cfg.border};`;
+  document.getElementById('modalTitle').textContent = card.title;
+  document.getElementById('modal').style.setProperty('--modal-color', cfg.color);
+
+  // Suporta tanto arrays (padrão interno) quanto strings (retorno da IA normalizado)
+  const applications = Array.isArray(dd.applications) ? dd.applications : [];
+  const steps        = Array.isArray(dd.steps)        ? dd.steps        : [];
+  const howToUse     = dd.howToUse || '';
+
+  const kpisHtml = card.kpis ? `
+    <div class="modal-section">
+      <div class="modal-section-title">Métricas-chave</div>
+      <div class="modal-kpis">${card.kpis.map(k=>`<div class="modal-kpi"><div class="modal-kpi-val" style="color:${cfg.color}">${k.val}</div><div class="modal-kpi-lbl">${k.lbl}</div></div>`).join('')}</div>
+    </div>` : '';
+
+  const howHtml = howToUse ? `
+    <div class="modal-section">
+      <div class="modal-section-title">Como usar no seu contexto</div>
+      <div class="modal-text">${escHtml(howToUse)}</div>
+    </div>` : '';
+
+  const appsHtml = applications.map(a => `<div class="app-item"><span class="app-arrow">→</span><span>${escHtml(a)}</span></div>`).join('');
+  const stepsHtml = steps.map((s,i) => `<div class="step-item"><div class="step-num">${i+1}</div><div class="step-text">${escHtml(s)}</div></div>`).join('');
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">Contexto expandido</div>
+      <div class="modal-text">${escHtml(dd.expanded || card.summary)}</div>
+    </div>
+    ${kpisHtml}
+    ${howHtml}
+    ${applications.length ? `<div class="modal-section"><div class="modal-section-title">Aplicações práticas</div><div class="app-list">${appsHtml}</div></div>` : ''}
+    ${steps.length ? `<div class="modal-section"><div class="modal-section-title">Próximos passos</div><div class="steps-list">${stepsHtml}</div></div>` : ''}
+  `;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDiveModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeDiveModal);
+document.getElementById('overlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeDiveModal(); });
+
+// ============================================================
+//  MODAL DE EDIÇÃO
+// ============================================================
+let editingId = null;
+
+function openEditModal(card) {
+  editingId = card.id;
+  document.getElementById('editTitle').textContent = card.generatedByAI ? 'Editar card gerado por IA' : 'Editar card';
+  document.getElementById('ef-title').value         = card.title || '';
+  document.getElementById('ef-category').value      = card.category || 'TCC';
+  document.getElementById('ef-relevance').value     = card.relevance || 8;
+  document.getElementById('ef-rel-val').textContent = (card.relevance||8).toFixed(1);
+  document.getElementById('ef-summary').value       = card.summary || '';
+  document.getElementById('ef-why').value           = card.whyItMatters || '';
+  document.getElementById('ef-connection').value    = card.connection || '';
+  document.getElementById('ef-action').value        = card.suggestedAction || '';
+  document.getElementById('ef-source').value        = card.sourceUrl || '';
+  document.getElementById('ef-deepExpanded').value  = (card.deepDiveContent && card.deepDiveContent.expanded) || '';
+  document.getElementById('editOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('ef-relevance').addEventListener('input', function() {
+  document.getElementById('ef-rel-val').textContent = parseFloat(this.value).toFixed(1);
+});
+
+function closeEditModal() {
+  document.getElementById('editOverlay').classList.remove('open');
+  document.body.style.overflow = ''; editingId = null;
+}
+document.getElementById('editClose').addEventListener('click', closeEditModal);
+document.getElementById('editCancel').addEventListener('click', closeEditModal);
+document.getElementById('editOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeEditModal(); });
+
+document.getElementById('editSave').addEventListener('click', function() {
+  if (!editingId) return;
+  const card = state.cards.find(c => c.id === editingId);
+  if (!card) return;
+  const title = document.getElementById('ef-title').value.trim();
+  if (!title) { showToast('⚠️ O título não pode ficar vazio.'); return; }
+  card.title           = title;
+  card.category        = document.getElementById('ef-category').value;
+  card.relevance       = parseFloat(document.getElementById('ef-relevance').value);
+  card.summary         = document.getElementById('ef-summary').value.trim();
+  card.whyItMatters    = document.getElementById('ef-why').value.trim();
+  card.connection      = document.getElementById('ef-connection').value.trim();
+  card.suggestedAction = document.getElementById('ef-action').value.trim();
+  card.sourceUrl       = document.getElementById('ef-source').value.trim() || '#';
+  if (!card.deepDiveContent) card.deepDiveContent = { applications:[], steps:[] };
+  card.deepDiveContent.expanded = document.getElementById('ef-deepExpanded').value.trim();
+  saveCards(); closeEditModal(); renderFeed(true);
+  showToast('✓ Card atualizado e salvo.');
+});
+
+// ============================================================
+//  CONFIRM DIALOG
+// ============================================================
+let confirmCallback = null;
+
+function openConfirm({ icon, title, sub, okLabel, okClass, onOk }) {
+  document.getElementById('confirmIcon').textContent  = icon;
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmSub').textContent   = sub;
+  const ok = document.getElementById('confirmOk');
+  ok.textContent = okLabel;
+  ok.className   = 'btn-confirm-ok' + (okClass ? ' ' + okClass : '');
+  confirmCallback = onOk;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+
+function closeConfirm() {
+  document.getElementById('confirmOverlay').classList.remove('open');
+  confirmCallback = null;
+}
+document.getElementById('confirmCancel').addEventListener('click', closeConfirm);
+document.getElementById('confirmOk').addEventListener('click', () => { if (confirmCallback) confirmCallback(); closeConfirm(); });
+document.getElementById('confirmOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeConfirm(); });
+
+// ============================================================
+//  EXPORTAR BACKUP
+// ============================================================
+document.getElementById('btnExport').addEventListener('click', function() {
+  const data = { version:'0.3', exportedAt:new Date().toISOString(), profile:{name:'Lucas',institution:'Unicamp',employer:'Agibank'}, cards:state.cards };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `pulse-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast(`⬇ Backup exportado com ${state.cards.length} cards.`);
+});
+
+// ============================================================
+//  IMPORTAR BACKUP
+// ============================================================
+document.getElementById('btnImportTrigger').addEventListener('click', () => document.getElementById('importFile').click());
+
+document.getElementById('importFile').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      const parsed = JSON.parse(evt.target.result);
+      const cards  = Array.isArray(parsed) ? parsed : (parsed.cards || null);
+      if (!Array.isArray(cards) || cards.length === 0) throw new Error('Formato inválido');
+      openConfirm({
+        icon:'⬆', title:`Importar ${cards.length} cards?`,
+        sub:'O feed atual será substituído pelos cards do backup.',
+        okLabel:'Importar', okClass:'safe',
+        onOk:() => {
+          state.cards = cards.map(c => ({
+            ...c,
+            status:c.status||(c.useful?'useful':c.ignored?'ignored':'active'),
+            whyItMatters:c.whyItMatters||c.why||'',
+            suggestedAction:c.suggestedAction||c.action||'',
+            sourceUrl:c.sourceUrl||c.source||'#',
+            deepDiveContent:c.deepDiveContent||c.deepDive||{applications:[],steps:[]},
+            createdAt:c.createdAt||new Date().toISOString(),
+            generatedByAI: c.generatedByAI || false,
+          }));
+          saveCards(); renderFeed(true);
+          showToast(`✓ ${cards.length} cards importados e salvos.`);
+        }
+      });
+    } catch(err) { showToast('⚠️ Arquivo inválido. Verifique o JSON.', 'error'); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+});
+
+// ============================================================
+//  RESETAR FEED
+// ============================================================
+document.getElementById('btnReset').addEventListener('click', function() {
+  openConfirm({
+    icon:'↺', title:'Resetar para os cards padrão?',
+    sub:'Todos os cards gerados ou editados serão perdidos.',
+    okLabel:'Resetar', okClass:'',
+    onOk:() => {
+      state.cards = getDefaultCards(); saveCards(); renderFeed(true);
+      showToast('↺ Feed resetado para os cards padrão.');
+    }
+  });
+});
+
+// ============================================================
+//  TECLAS DE ATALHO
+// ============================================================
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeDiveModal(); closeEditModal(); closeConfirm(); }
+});
+
+// ============================================================
+//  INICIALIZAÇÃO
+// ============================================================
+(function init() {
+  const saved = loadCards();
+  if (saved) {
+    state.cards = saved.map(c => ({
+      ...c,
+      status:c.status||(c.useful?'useful':c.ignored?'ignored':'active'),
+      whyItMatters:c.whyItMatters||c.why||'',
+      suggestedAction:c.suggestedAction||c.action||'',
+      sourceUrl:c.sourceUrl||c.source||'#',
+      deepDiveContent:c.deepDiveContent||c.deepDive||{applications:[],steps:[]},
+      createdAt:c.createdAt||new Date().toISOString(),
+      generatedByAI: c.generatedByAI || false,
+    }));
+    // Salva no novo LS_KEY se veio de migração
+    saveCards();
+    showToast(`✓ ${state.cards.length} cards carregados.`);
+  } else {
+    state.cards = getDefaultCards();
+    saveCards();
+  }
+  renderFeed();
+})();
+</script>
+</body>
+</html>

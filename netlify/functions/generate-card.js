@@ -123,12 +123,11 @@ exports.handler = async function (event) {
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",          // rápido, econômico e capaz
+      model: "gemini-2.5-flash-lite",          // rápido, econômico e capaz
       generationConfig: {
         temperature:     0.7,
         topP:            0.9,
         maxOutputTokens: 1200,
-        // Força resposta em JSON puro
         responseMimeType: "application/json",
       },
     });

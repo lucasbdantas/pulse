@@ -95,9 +95,9 @@ ${card.deepDiveContent?.expanded ? `Contexto expandido: ${card.deepDiveContent.e
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
       generationConfig: {
-        temperature: 0.75,
-        topP: 0.9,
-        maxOutputTokens: 1000,
+        temperature: 0.2,
+        topP: 0.8,
+        maxOutputTokens: 2500,
         responseMimeType: "application/json",
       },
     });

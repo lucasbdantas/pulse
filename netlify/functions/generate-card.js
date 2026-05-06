@@ -123,7 +123,7 @@ exports.handler = async function (event) {
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",          // rápido, econômico e capaz
+      model: "gemini-2.5-flash",          // rápido, econômico e capaz
       generationConfig: {
         temperature:     0.7,
         topP:            0.9,

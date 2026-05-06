@@ -39,50 +39,21 @@ html { scroll-behavior: smooth; font-size: 16px; }
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg); color: var(--text-1);
-  min-height: 100vh; overflow-x: hidden;
-  line-height: 1.6; -webkit-font-smoothing: antialiased;
-}
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(74,142,255,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167,139,250,0.03) 0%, transparent 50%);
-  pointer-events: none; z-index: 0;
-}
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text-1); min-height: 100vh; overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 10%, rgba(74,142,255,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167,139,250,0.03) 0%, transparent 50%); pointer-events: none; z-index: 0; }
 
 /* ================================================================
    HEADER
    ================================================================ */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(7,9,15,0.82);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
-  border-bottom: 1px solid var(--border);
-}
-.header-inner {
-  max-width: 1320px; margin: 0 auto; padding: 0 28px;
-  height: 58px; display: flex; align-items: center; gap: 20px;
-}
+.header { position: sticky; top: 0; z-index: 100; background: rgba(7,9,15,0.82); backdrop-filter: blur(24px) saturate(1.5); -webkit-backdrop-filter: blur(24px) saturate(1.5); border-bottom: 1px solid var(--border); }
+.header-inner { max-width: 1320px; margin: 0 auto; padding: 0 28px; height: 58px; display: flex; align-items: center; gap: 20px; }
 .logo-mark { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-icon {
-  width: 30px; height: 30px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--blue), var(--violet));
-  display: flex; align-items: center; justify-content: center; font-size: 14px;
-  box-shadow: 0 0 16px rgba(74,142,255,0.35); flex-shrink: 0;
-}
+.logo-icon { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--blue), var(--violet)); display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 0 16px rgba(74,142,255,0.35); flex-shrink: 0; }
 .logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.3px; color: var(--text-1); }
 .header-divider { width: 1px; height: 18px; background: var(--border-md); flex-shrink: 0; }
 .header-sub { font-size: 12.5px; color: var(--text-3); flex: 1; display: none; }
 @media (min-width: 600px) { .header-sub { display: block; } }
-.pulse-live {
-  display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600;
-  letter-spacing: 0.5px; color: var(--green); background: var(--green-bg);
-  border: 1px solid rgba(52,211,153,0.18); padding: 5px 12px; border-radius: 100px;
-}
+.pulse-live { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--green); background: var(--green-bg); border: 1px solid rgba(52,211,153,0.18); padding: 5px 12px; border-radius: 100px; }
 .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: blink 2s ease-in-out infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .version-badge { font-size: 10px; font-weight: 700; font-family: 'Geist Mono', monospace; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(251,191,36,0.2); padding: 3px 8px; border-radius: 100px; display: none; }
@@ -116,8 +87,6 @@ body::before {
 .filter-emoji { font-size: 13px; width: 20px; text-align: center; }
 .filter-count { margin-left: auto; font-size: 11px; font-family: 'Geist Mono', monospace; background: rgba(255,255,255,0.06); color: var(--text-3); padding: 1px 7px; border-radius: 100px; }
 .filter-btn.active .filter-count { background: rgba(74,142,255,0.15); color: var(--blue); }
-
-/* Data tools */
 .data-tools { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
 .data-tools-title { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-3); padding: 2px 0 6px; }
 .tool-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 11px; border-radius: 9px; font-family: 'Outfit', sans-serif; font-size: 12.5px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text-2); transition: all 0.18s; text-align: left; }
@@ -126,8 +95,6 @@ body::before {
 .tool-btn.danger:hover { background: var(--rose-bg); border-color: rgba(251,113,133,0.3); }
 .tool-btn-icon { font-size: 13px; flex-shrink: 0; }
 #importFile { display: none; }
-
-/* Mini stats */
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .mini-stat { background: var(--bg-card); padding: 14px 16px; display: flex; flex-direction: column; gap: 3px; }
 .mini-stat:first-child { border-radius: var(--radius-lg) 0 0 0; }
@@ -143,7 +110,133 @@ body::before {
 .feed-area { display: flex; flex-direction: column; gap: 20px; }
 
 /* ================================================================
-   TOP PRIORIDADE DO DIA
+   DAILY BRIEFING SECTION
+   ================================================================ */
+.briefing-section {
+  border-radius: var(--radius-xl); overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid rgba(74,142,255,0.22);
+  position: relative;
+  animation: card-appear 0.5s var(--ease-out) both;
+}
+.briefing-section::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(135deg, rgba(74,142,255,0.05) 0%, rgba(167,139,250,0.03) 50%, transparent 100%);
+}
+/* Header da central de comando */
+.briefing-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 18px 22px 16px; border-bottom: 1px solid rgba(74,142,255,0.14); position: relative;
+}
+.briefing-header-left { display: flex; align-items: center; gap: 12px; }
+.briefing-icon {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  box-shadow: 0 0 18px rgba(74,142,255,0.3);
+}
+.briefing-label-row { display: flex; flex-direction: column; gap: 2px; }
+.briefing-eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); }
+.briefing-headline { font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--text-1); line-height: 1.3; }
+.briefing-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.briefing-date { font-size: 11px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+.btn-hide-briefing {
+  background: transparent; border: 1px solid var(--border-md); color: var(--text-3);
+  padding: 4px 10px; border-radius: 7px; font-family: 'Outfit', sans-serif; font-size: 11px;
+  cursor: pointer; transition: all 0.18s;
+}
+.btn-hide-briefing:hover { background: rgba(255,255,255,0.04); color: var(--text-2); }
+.btn-add-all {
+  background: var(--blue-bg); border: 1px solid rgba(74,142,255,0.3); color: var(--blue);
+  padding: 5px 13px; border-radius: 8px; font-family: 'Outfit', sans-serif; font-size: 12px;
+  font-weight: 600; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; gap: 6px;
+}
+.btn-add-all:hover { background: rgba(74,142,255,0.18); box-shadow: 0 0 12px rgba(74,142,255,0.15); }
+
+/* Foco do dia */
+.briefing-focus {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 22px; border-bottom: 1px solid rgba(74,142,255,0.1);
+  font-size: 13px; color: var(--text-2); background: rgba(74,142,255,0.03);
+}
+.briefing-focus-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue); white-space: nowrap; }
+.briefing-focus-text { color: var(--text-1); font-weight: 500; }
+
+/* Grid de cards do briefing */
+.briefing-cards-grid {
+  display: flex; flex-direction: column; gap: 1px; background: rgba(74,142,255,0.08);
+}
+
+/* Card do briefing — compacto e denso */
+.briefing-card {
+  background: var(--bg-card); padding: 16px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: background 0.2s;
+  position: relative;
+}
+.briefing-card:hover { background: rgba(255,255,255,0.015); }
+.briefing-card-row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.briefing-priority {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; padding: 2px 8px;
+  border-radius: 100px; border: 1px solid;
+}
+.briefing-priority.alta { color: var(--rose); background: var(--rose-bg); border-color: rgba(251,113,133,0.25); }
+.briefing-priority.media { color: var(--amber); background: var(--amber-bg); border-color: rgba(251,191,36,0.25); }
+.briefing-priority.baixa { color: var(--green); background: var(--green-bg); border-color: rgba(52,211,153,0.25); }
+.briefing-time { font-size: 10px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+.briefing-rel { font-size: 10px; font-family: 'Geist Mono', monospace; margin-left: auto; }
+.briefing-card-title { font-family: 'Instrument Serif', serif; font-size: 15px; line-height: 1.3; color: var(--text-1); }
+.briefing-card-summary { font-size: 12.5px; color: var(--text-2); line-height: 1.6; }
+.briefing-card-action { font-size: 12px; color: var(--blue); font-weight: 500; }
+.briefing-card-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.btn-briefing-add {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: transparent; border: 1px solid var(--border-md); color: var(--text-2);
+  padding: 5px 11px; border-radius: 7px; font-family: 'Outfit', sans-serif; font-size: 11.5px;
+  font-weight: 500; cursor: pointer; transition: all 0.18s;
+}
+.btn-briefing-add:hover { background: var(--green-bg); color: var(--green); border-color: rgba(52,211,153,0.3); }
+.btn-briefing-add.added { color: var(--green); border-color: rgba(52,211,153,0.3); background: var(--green-bg); pointer-events: none; }
+.btn-briefing-dive {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--blue-bg); border: 1px solid rgba(74,142,255,0.25); color: var(--blue);
+  padding: 5px 11px; border-radius: 7px; font-family: 'Outfit', sans-serif; font-size: 11.5px;
+  font-weight: 600; cursor: pointer; transition: all 0.18s;
+}
+.btn-briefing-dive:hover { background: rgba(74,142,255,0.18); }
+.btn-briefing-mission {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--violet-bg); border: 1px solid rgba(167,139,250,0.25); color: var(--violet);
+  padding: 5px 11px; border-radius: 7px; font-family: 'Outfit', sans-serif; font-size: 11.5px;
+  font-weight: 600; cursor: pointer; transition: all 0.18s;
+}
+.btn-briefing-mission:hover { background: rgba(167,139,250,0.18); }
+
+/* Briefing footer */
+.briefing-footer { padding: 12px 22px; border-top: 1px solid rgba(74,142,255,0.1); display: flex; align-items: center; gap: 10px; }
+.briefing-footer-text { font-size: 11px; color: var(--text-3); font-family: 'Geist Mono', monospace; flex: 1; }
+
+/* Botão de gerar briefing — destaque */
+.btn-generate-briefing {
+  display: flex; align-items: center; gap: 9px;
+  background: linear-gradient(135deg, rgba(74,142,255,0.15), rgba(167,139,250,0.1));
+  border: 1px solid rgba(74,142,255,0.3); color: var(--blue);
+  padding: 12px 20px; border-radius: var(--radius-lg);
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px;
+  cursor: pointer; transition: all 0.22s; width: 100%;
+  box-shadow: 0 2px 16px rgba(74,142,255,0.1);
+}
+.btn-generate-briefing:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(74,142,255,0.22), rgba(167,139,250,0.16));
+  box-shadow: 0 4px 24px rgba(74,142,255,0.2);
+  transform: translateY(-1px);
+}
+.btn-generate-briefing:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-generate-briefing .briefing-btn-icon { font-size: 17px; }
+.btn-generate-briefing .briefing-btn-sub { font-size: 11px; color: var(--text-3); font-weight: 400; margin-left: auto; font-family: 'Geist Mono', monospace; }
+
+/* ================================================================
+   TOP PRIORIDADE DO DIA (static)
    ================================================================ */
 .priority-section { background: var(--bg-card); border: 1px solid rgba(251,191,36,0.2); border-radius: var(--radius-xl); overflow: hidden; position: relative; }
 .priority-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(251,191,36,0.04) 0%, rgba(251,146,60,0.02) 100%); pointer-events: none; }
@@ -162,45 +255,24 @@ body::before {
 .priority-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 100px; margin-top: 2px; width: fit-content; }
 
 /* ================================================================
-   INPUT DE GERAÇÃO — com indicador de modo IA
+   INPUT + BOTÃO IA
    ================================================================ */
-.input-bar {
-  background: var(--bg-card); border: 1px solid var(--border-md); border-radius: var(--radius-lg);
-  padding: 14px 16px; display: flex; gap: 10px; align-items: center;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
+.input-bar { background: var(--bg-card); border: 1px solid var(--border-md); border-radius: var(--radius-lg); padding: 14px 16px; display: flex; gap: 10px; align-items: center; transition: border-color 0.2s, box-shadow 0.2s; }
 .input-bar:focus-within { border-color: rgba(74,142,255,0.35); box-shadow: 0 0 0 3px rgba(74,142,255,0.06); }
 .input-bar.loading { border-color: rgba(167,139,250,0.4); box-shadow: 0 0 0 3px rgba(167,139,250,0.06); }
 .input-icon { font-size: 15px; flex-shrink: 0; }
 .input-bar input { flex: 1; background: transparent; border: none; outline: none; font-family: 'Outfit', sans-serif; font-size: 13.5px; color: var(--text-1); }
 .input-bar input::placeholder { color: var(--text-3); }
 .input-bar input:disabled { opacity: 0.5; }
-
-/* Botão de gerar com estados */
-.btn-gen {
-  background: var(--blue); color: white; border: none; border-radius: 9px;
-  padding: 8px 16px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 12.5px;
-  cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 12px rgba(74,142,255,0.25);
-  display: flex; align-items: center; gap: 7px; min-width: 110px; justify-content: center;
-}
+.btn-gen { background: var(--blue); color: white; border: none; border-radius: 9px; padding: 8px 16px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 12.5px; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 12px rgba(74,142,255,0.25); display: flex; align-items: center; gap: 7px; min-width: 110px; justify-content: center; }
 .btn-gen:hover:not(:disabled) { background: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(74,142,255,0.35); }
 .btn-gen:active:not(:disabled) { transform: translateY(0); }
 .btn-gen:disabled { opacity: 0.65; cursor: not-allowed; }
 .btn-gen.state-loading { background: var(--violet); box-shadow: 0 2px 12px rgba(167,139,250,0.3); }
 .btn-gen.state-error { background: var(--rose); box-shadow: 0 2px 12px rgba(251,113,133,0.3); }
-
-/* Spinner */
 .spinner { width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* Status de modo IA */
-.ai-mode-bar {
-  display: flex; align-items: center; gap: 8px; font-size: 11.5px;
-  color: var(--violet); background: var(--violet-bg);
-  border: 1px solid rgba(167,139,250,0.18); border-radius: 10px;
-  padding: 8px 14px; transition: opacity 0.3s;
-}
+.ai-mode-bar { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--violet); background: var(--violet-bg); border: 1px solid rgba(167,139,250,0.18); border-radius: 10px; padding: 8px 14px; transition: opacity 0.3s; }
 .ai-mode-bar.hidden { display: none; }
 .ai-mode-bar .ai-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--violet); flex-shrink: 0; }
 .ai-mode-bar.fallback { color: var(--amber); background: var(--amber-bg); border-color: rgba(251,191,36,0.18); }
@@ -218,13 +290,9 @@ body::before {
 .ctrl-btn.active { color: var(--blue); border-color: rgba(74,142,255,0.3); background: var(--blue-bg); }
 
 /* ================================================================
-   FEED LIST
+   CARD (feed)
    ================================================================ */
 .feed-list { display: flex; flex-direction: column; gap: 14px; }
-
-/* ================================================================
-   CARD
-   ================================================================ */
 .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease-out), opacity 0.3s; animation: card-appear 0.4s var(--ease-out) both; position: relative; }
 @keyframes card-appear { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
 .card:hover { border-color: var(--border-md); box-shadow: 0 8px 40px rgba(0,0,0,0.4); transform: translateY(-2px); }
@@ -232,14 +300,16 @@ body::before {
 .card.state-useful { border-color: rgba(52,211,153,0.2); background: rgba(52,211,153,0.015); }
 .card.state-useful .card-accent-bar { background: linear-gradient(90deg, var(--green), transparent 80%); }
 .card.state-ignored { opacity: 0.22; transform: scale(0.985); pointer-events: none; max-height: 58px; overflow: hidden; }
-.card.state-generated { border-color: rgba(167,139,250,0.2); } /* IA = violeta */
-.card.state-generated-local { border-color: rgba(251,191,36,0.18); } /* local = âmbar */
+.card.state-generated { border-color: rgba(167,139,250,0.2); }
+.card.state-generated-local { border-color: rgba(251,191,36,0.18); }
+.card.state-from-briefing { border-color: rgba(74,142,255,0.2); }
 .card-body { padding: 20px 22px; }
 .card-row1 { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .card-left-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .cat-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 100px; border: 1px solid; }
 .ai-chip { font-size: 10px; font-weight: 600; color: var(--violet); background: var(--violet-bg); border: 1px solid rgba(167,139,250,0.2); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.3px; }
 .local-chip { font-size: 10px; font-weight: 600; color: var(--amber); background: var(--amber-bg); border: 1px solid rgba(251,191,36,0.2); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.3px; }
+.briefing-chip { font-size: 10px; font-weight: 600; color: var(--blue); background: var(--blue-bg); border: 1px solid rgba(74,142,255,0.25); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.3px; }
 .rel-score { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .rel-bar-wrap { width: 48px; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
 .rel-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s var(--ease-out); }
@@ -267,12 +337,15 @@ body::before {
 .act-btn.btn-edit:hover { color: var(--amber); border-color: rgba(251,191,36,0.3); background: var(--amber-bg); }
 .act-btn.btn-delete:hover { color: var(--rose); border-color: rgba(251,113,133,0.25); background: var(--rose-bg); }
 .act-btn.btn-dive { color: var(--blue); border-color: rgba(74,142,255,0.25); background: var(--blue-bg); font-weight: 600; }
-.act-btn.btn-dive:hover { background: rgba(74,142,255,0.15); border-color: rgba(74,142,255,0.4); box-shadow: 0 0 14px rgba(74,142,255,0.1); }
+.act-btn.btn-dive:hover { background: rgba(74,142,255,0.15); border-color: rgba(74,142,255,0.4); }
+.act-btn.btn-mission { color: var(--violet); border-color: rgba(167,139,250,0.25); background: var(--violet-bg); font-weight: 600; }
+.act-btn.btn-mission:hover { background: rgba(167,139,250,0.18); border-color: rgba(167,139,250,0.45); box-shadow: 0 0 14px rgba(167,139,250,0.12); }
+.act-btn.btn-mission.loading { opacity: 0.7; pointer-events: none; }
 .card-src { font-size: 11.5px; color: var(--text-3); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.15s; font-family: 'Geist Mono', monospace; }
 .card-src:hover { color: var(--blue); }
 
 /* ================================================================
-   MODAL DEEP DIVE
+   DEEP DIVE MODAL
    ================================================================ */
 .overlay { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-end; justify-content: center; padding: 0; background: rgba(0,0,0,0); backdrop-filter: blur(0px); pointer-events: none; transition: background 0.3s, backdrop-filter 0.3s; }
 @media (min-width: 640px) { .overlay { align-items: center; padding: 20px; } }
@@ -304,6 +377,71 @@ body::before {
 .modal-kpi { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
 .modal-kpi-val { font-family: 'Geist Mono', monospace; font-size: 18px; font-weight: 500; line-height: 1; }
 .modal-kpi-lbl { font-size: 10.5px; color: var(--text-3); line-height: 1.3; }
+
+/* ================================================================
+   MISSION MODAL
+   ================================================================ */
+.mission-overlay { position: fixed; inset: 0; z-index: 250; display: flex; align-items: flex-end; justify-content: center; padding: 0; background: rgba(0,0,0,0); backdrop-filter: blur(0px); pointer-events: none; transition: background 0.3s, backdrop-filter 0.3s; }
+@media (min-width: 640px) { .mission-overlay { align-items: center; padding: 20px; } }
+.mission-overlay.open { background: rgba(0,0,0,0.7); backdrop-filter: blur(12px) saturate(0.8); pointer-events: all; }
+.mission-modal { background: var(--bg-raised); border: 1px solid rgba(167,139,250,0.25); border-radius: var(--radius-xl) var(--radius-xl) 0 0; width: 100%; max-width: 680px; max-height: 92vh; overflow-y: auto; transform: translateY(100%); transition: transform 0.4s var(--ease-out); box-shadow: var(--shadow-lg), 0 0 60px rgba(167,139,250,0.08); display: flex; flex-direction: column; }
+@media (min-width: 640px) { .mission-modal { border-radius: var(--radius-xl); transform: translateY(24px) scale(0.95); opacity: 0; transition: transform 0.35s var(--ease-out), opacity 0.3s; max-height: 88vh; } }
+.mission-overlay.open .mission-modal { transform: translateY(0); }
+@media (min-width: 640px) { .mission-overlay.open .mission-modal { transform: translateY(0) scale(1); opacity: 1; } }
+.mission-handle { width: 36px; height: 4px; border-radius: 2px; background: rgba(167,139,250,0.3); margin: 12px auto 0; display: block; }
+@media (min-width: 640px) { .mission-handle { display: none; } }
+
+/* Mission header */
+.mission-header { padding: 20px 24px 16px; border-bottom: 1px solid rgba(167,139,250,0.15); position: relative; }
+.mission-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--violet), rgba(74,142,255,0.5), transparent); }
+.mission-eyebrow { font-size: 9.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--violet); margin-bottom: 6px; display: flex; align-items: center; gap: 7px; }
+.mission-title { font-family: 'Instrument Serif', serif; font-size: 22px; line-height: 1.25; color: var(--text-1); letter-spacing: -0.3px; margin-bottom: 12px; }
+.mission-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mission-meta-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; padding: 4px 11px; border-radius: 100px; border: 1px solid; }
+.mission-meta-pill.duration { color: var(--cyan); background: var(--cyan-bg); border-color: rgba(34,211,238,0.25); }
+.mission-meta-pill.diff-baixa { color: var(--green); background: var(--green-bg); border-color: rgba(52,211,153,0.25); }
+.mission-meta-pill.diff-media { color: var(--amber); background: var(--amber-bg); border-color: rgba(251,191,36,0.25); }
+.mission-meta-pill.diff-alta { color: var(--rose); background: var(--rose-bg); border-color: rgba(251,113,133,0.25); }
+.mission-close-btn { position: absolute; top: 18px; right: 20px; width: 30px; height: 30px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.15s; }
+.mission-close-btn:hover { background: rgba(255,255,255,0.09); color: var(--text-1); }
+
+/* Mission body */
+.mission-body { padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+.mission-block { display: flex; flex-direction: column; gap: 8px; }
+.mission-block-title { font-size: 9.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--text-3); display: flex; align-items: center; gap: 7px; }
+.mission-block-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.mission-block-text { font-size: 13.5px; color: var(--text-2); line-height: 1.7; }
+
+/* Deliverable box */
+.mission-deliverable { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.18); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--text-1); font-weight: 500; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px; }
+.mission-deliverable-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+/* Checklist */
+.mission-checklist { display: flex; flex-direction: column; gap: 6px; }
+.mission-check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 10px; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+.mission-check-item:hover { background: rgba(255,255,255,0.04); border-color: var(--border-md); }
+.mission-check-item.checked { background: rgba(52,211,153,0.05); border-color: rgba(52,211,153,0.2); }
+.mission-check-box { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--border-hi); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; transition: all 0.2s; font-size: 10px; color: transparent; }
+.mission-check-item.checked .mission-check-box { background: var(--green); border-color: var(--green); color: white; }
+.mission-check-text { font-size: 13px; color: var(--text-2); line-height: 1.5; transition: color 0.2s; }
+.mission-check-item.checked .mission-check-text { color: var(--text-3); text-decoration: line-through; }
+.mission-progress-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.mission-progress-fill { height: 100%; background: linear-gradient(90deg, var(--violet), var(--green)); border-radius: 2px; transition: width 0.4s var(--ease-out); }
+.mission-progress-label { font-size: 10.5px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+
+/* First step highlight */
+.mission-first-step { background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(74,142,255,0.05)); border: 1px solid rgba(167,139,250,0.25); border-radius: 12px; padding: 14px 16px; }
+.mission-first-step-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--violet); margin-bottom: 5px; }
+.mission-first-step-text { font-size: 13.5px; color: var(--text-1); font-weight: 500; line-height: 1.5; }
+
+/* Tools */
+.mission-tools { display: flex; gap: 7px; flex-wrap: wrap; }
+.mission-tool-pill { font-size: 12px; font-weight: 500; color: var(--text-2); background: rgba(255,255,255,0.04); border: 1px solid var(--border-md); padding: 4px 12px; border-radius: 100px; }
+
+/* Mission loading skeleton */
+.mission-loading { padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.mission-loading-spinner { width: 32px; height: 32px; border: 3px solid rgba(167,139,250,0.2); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
+.mission-loading-text { font-size: 13px; color: var(--text-2); }
 
 /* ================================================================
    EDIT MODAL
@@ -352,7 +490,7 @@ body::before {
 /* ================================================================
    TOAST
    ================================================================ */
-.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(72px); background: var(--bg-raised); border: 1px solid var(--border-md); color: var(--text-1); padding: 9px 18px; border-radius: 100px; font-size: 12.5px; font-weight: 500; z-index: 500; transition: transform 0.35s var(--ease-out); pointer-events: none; white-space: nowrap; box-shadow: var(--shadow-md); max-width: 90vw; text-align: center; }
+.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(72px); background: var(--bg-raised); border: 1px solid var(--border-md); color: var(--text-1); padding: 9px 18px; border-radius: 100px; font-size: 12.5px; font-weight: 500; z-index: 600; transition: transform 0.35s var(--ease-out); pointer-events: none; white-space: nowrap; box-shadow: var(--shadow-md); max-width: 90vw; text-align: center; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.error { border-color: rgba(251,113,133,0.3); color: var(--rose); }
 
@@ -383,7 +521,7 @@ body::before {
     <a class="logo-mark" href="#"><div class="logo-icon">⚡</div><span class="logo-text">Pulse</span></a>
     <div class="header-divider"></div>
     <div class="header-sub">O feed que trabalha para você.</div>
-    <span class="version-badge">v0.3 · IA</span>
+    <span class="version-badge">v0.4 · IA</span>
     <div class="pulse-live"><span class="live-dot"></span>IA Conectada</div>
   </div>
 </header>
@@ -422,7 +560,7 @@ body::before {
       <div class="mini-stat"><span class="mini-stat-val" id="stat-useful">0</span><span class="mini-stat-lbl">Úteis</span></div>
       <div class="mini-stat"><span class="mini-stat-val" id="stat-total">0</span><span class="mini-stat-lbl">Cards</span></div>
       <div class="mini-stat"><span class="mini-stat-val" id="stat-avg">—</span><span class="mini-stat-lbl">Relevância</span></div>
-      <div class="mini-stat"><span class="mini-stat-val" id="stat-ai">0</span><span class="mini-stat-lbl">Gerados por IA</span></div>
+      <div class="mini-stat"><span class="mini-stat-val" id="stat-ai">0</span><span class="mini-stat-lbl">Por IA</span></div>
     </div>
 
     <div class="s-block">
@@ -437,7 +575,18 @@ body::before {
   </aside>
 
   <main class="feed-area">
-    <!-- TOP PRIORIDADE DO DIA -->
+
+    <!-- BOTÃO DE BRIEFING -->
+    <button class="btn-generate-briefing" id="btnGenerateBriefing">
+      <span class="briefing-btn-icon">🧠</span>
+      <span>Gerar briefing do dia com IA</span>
+      <span class="briefing-btn-sub" id="briefingBtnSub">5 cards · personalizado · agora</span>
+    </button>
+
+    <!-- BRIEFING SECTION (oculto até gerar) -->
+    <div class="briefing-section" id="briefingSection" style="display:none;"></div>
+
+    <!-- TOP PRIORIDADE DO DIA (estática) -->
     <section class="priority-section">
       <div class="priority-header">
         <div class="priority-eyebrow"><div class="priority-icon">🎯</div><div class="priority-title">Top Prioridade do Dia</div></div>
@@ -458,7 +607,7 @@ body::before {
         </div>
         <div class="priority-item">
           <div class="priority-item-num">03 · Francês</div>
-          <div class="priority-item-text">15 min de shadowing com InnerFrench — Épisode sobre technologie</div>
+          <div class="priority-item-text">15 min de shadowing com InnerFrench — Épisode sur la technologie</div>
           <div class="priority-item-sub">Consistência diária > sessões longas ocasionais. Sem negociação.</div>
           <span class="priority-tag" style="background:rgba(251,191,36,0.09);color:#fbbf24;border:1px solid rgba(251,191,36,0.2);">🇫🇷 Hábito diário</span>
         </div>
@@ -497,11 +646,11 @@ body::before {
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-left">pulse/v0.3 · IA via Netlify Functions · localStorage persistência</div>
-  <div class="footer-pill">✓ IA conectada · RSS e sync em breve</div>
+  <div class="footer-left">pulse/v0.4 · Briefing · Missões · IA via Netlify</div>
+  <div class="footer-pill">✓ IA · Briefing · Modo Missão</div>
 </footer>
 
-<!-- MODAIS -->
+<!-- DEEP DIVE MODAL -->
 <div class="overlay" id="overlay">
   <div class="modal" id="modal">
     <span class="modal-handle"></span>
@@ -514,6 +663,27 @@ body::before {
   </div>
 </div>
 
+<!-- MISSION MODAL -->
+<div class="mission-overlay" id="missionOverlay">
+  <div class="mission-modal" id="missionModal">
+    <span class="mission-handle"></span>
+    <div class="mission-header">
+      <div class="mission-accent"></div>
+      <div class="mission-eyebrow">🎯 Modo Missão</div>
+      <div class="mission-title" id="missionTitle">—</div>
+      <div class="mission-meta-row" id="missionMeta"></div>
+      <button class="mission-close-btn" id="missionClose">✕</button>
+    </div>
+    <div class="mission-body" id="missionBody">
+      <div class="mission-loading">
+        <div class="mission-loading-spinner"></div>
+        <div class="mission-loading-text">Gerando missão com IA…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
 <div class="edit-overlay" id="editOverlay">
   <div class="edit-modal">
     <div class="edit-header"><div class="edit-title" id="editTitle">Editar card</div><button class="modal-close" id="editClose">✕</button></div>
@@ -540,9 +710,9 @@ body::before {
         </div>
       </div>
       <div class="field"><label>Resumo</label><textarea id="ef-summary" rows="3" placeholder="Resumo do conteúdo..."></textarea></div>
-      <div class="field"><label>Por que importa para você</label><textarea id="ef-why" rows="2" placeholder="Relevância pessoal..."></textarea></div>
+      <div class="field"><label>Por que importa</label><textarea id="ef-why" rows="2" placeholder="Relevância pessoal..."></textarea></div>
       <div class="field"><label>Conexão com objetivos</label><input type="text" id="ef-connection" placeholder="ex: TCC · carreira · dados" /></div>
-      <div class="field"><label>Ação sugerida</label><textarea id="ef-action" rows="2" placeholder="O que fazer com esse conteúdo?"></textarea></div>
+      <div class="field"><label>Ação sugerida</label><textarea id="ef-action" rows="2" placeholder="O que fazer?"></textarea></div>
       <div class="field"><label>URL da fonte</label><input type="text" id="ef-source" placeholder="https://..." /></div>
       <div class="field"><label>Deep Dive — Contexto expandido</label><textarea id="ef-deepExpanded" rows="3" placeholder="Contexto mais detalhado..."></textarea></div>
     </div>
@@ -550,6 +720,7 @@ body::before {
   </div>
 </div>
 
+<!-- CONFIRM DIALOG -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
     <div class="confirm-icon" id="confirmIcon">⚠️</div>
@@ -564,7 +735,7 @@ body::before {
 
 <script>
 // ============================================================
-//  CONFIGURAÇÃO DE CATEGORIAS
+//  CATEGORIAS
 // ============================================================
 const CAT = {
   TCC:        { color: '#4a8eff', bg: 'rgba(74,142,255,0.1)',   border: 'rgba(74,142,255,0.22)',  emoji: '⚡' },
@@ -577,7 +748,9 @@ const CAT = {
   Cultura:    { color: '#818cf8', bg: 'rgba(129,140,248,0.09)', border: 'rgba(129,140,248,0.2)',  emoji: '🎬' },
 };
 
-// ── Fallback de keyword para quando IA falhar ─────────────
+// ============================================================
+//  FALLBACK LOCAL
+// ============================================================
 const KEYWORD_RULES = [
   { keys:['data center','datacenter','pue','wue','cue','refrigeração','cooling'], category:'TCC', rel:()=>+(8.5+Math.random()).toFixed(1), why:'Conecta ao TCC sobre data centers sustentáveis.', conn:'TCC · eficiência energética', action:'Identificar seção relevante no TCC e adicionar à revisão.' },
   { keys:['crédito','credit','fintech','scoring','inadimplência','risco'], category:'Carreira', rel:()=>+(8.0+Math.random()).toFixed(1), why:'Alinha com objetivo de trabalhar com crédito em fintechs.', conn:'Carreira · crédito · Agibank', action:'Avaliar como fortalece o portfólio para fintechs.' },
@@ -592,55 +765,43 @@ function localFallback(text) {
   const lower = text.toLowerCase();
   const rule  = KEYWORD_RULES.find(r => r.keys.some(k => lower.includes(k)));
   const cat   = rule ? rule.category : 'Tecnologia';
-  const cfg   = CAT[cat];
   const isUrl = text.startsWith('http://') || text.startsWith('https://');
-  const title = isUrl
-    ? 'Recurso externo: ' + text.replace(/https?:\/\//, '').split('/')[0]
-    : text.length > 100 ? text.slice(0, 97) + '…' : text;
-
+  const title = isUrl ? 'Recurso externo: ' + text.replace(/https?:\/\//, '').split('/')[0] : text.length > 100 ? text.slice(0, 97) + '…' : text;
   return {
-    id: Date.now(),
-    category: cat,
+    id: Date.now(), category: cat,
     relevance: rule ? rule.rel() : parseFloat((6.5 + Math.random() * 2).toFixed(1)),
-    status: 'active',
-    generatedByAI: false,
-    generated: true,
-    createdAt: new Date().toISOString(),
-    title,
-    summary: `Card gerado localmente (IA indisponível) a partir de: "${text.slice(0,80)}". Edite os campos abaixo para refinar.`,
+    status: 'active', generatedByAI: false, generated: true, fromBriefing: false,
+    createdAt: new Date().toISOString(), title,
+    summary: `Card gerado localmente (IA indisponível) a partir de: "${text.slice(0,80)}". Edite para refinar.`,
     whyItMatters: rule ? rule.why : 'Avalie a conexão com seus objetivos atuais.',
     connection:   rule ? rule.conn : 'Adicionado manualmente',
     suggestedAction: rule ? rule.action : 'Pesquisar fontes primárias e decidir se vira projeto ativo.',
-    sourceUrl: isUrl ? text : '',
-    kpis: null,
-    deepDiveContent: {
-      expanded: `Card gerado localmente: "${text.slice(0,120)}". Com a IA ativa, este conteúdo seria expandido com análise personalizada para o perfil do Lucas.`,
-      applications: ['Pesquisar fontes primárias: Google Scholar, arXiv, IEEE Xplore','Avaliar conexão com TCC, carreira ou objetivos pessoais','Decidir se transforma em projeto ativo no sistema PARA'],
-      steps: ['Buscar no Google Scholar para encontrar papers recentes','Salvar referências no Zotero ou Notion','Editar este card para refinar os campos']
-    }
+    sourceUrl: isUrl ? text : '', kpis: null,
+    deepDiveContent: { expanded: `Card gerado localmente: "${text.slice(0,120)}".`, applications: ['Pesquisar fontes primárias: Google Scholar, arXiv, IEEE Xplore','Avaliar conexão com TCC, carreira ou objetivos pessoais','Decidir se transforma em projeto ativo no sistema PARA'], steps: ['Buscar no Google Scholar para encontrar papers recentes','Salvar referências no Zotero ou Notion','Editar este card para refinar os campos'] }
   };
 }
 
 // ============================================================
-//  DADOS PADRÃO (mockados)
+//  DADOS PADRÃO
 // ============================================================
 function getDefaultCards() {
   return [
-    { id:1, category:'TCC', relevance:9.6, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:00:00.000Z', title:'Consumo de água em data centers de IA ultrapassa 1 trilhão de litros em 2024', summary:'Modelos de linguagem como GPT-4 consomem volumes críticos de água para resfriamento evaporativo. O WUE médio de data centers de hiperescala chegou a 1,8 L/kWh — número alarmante para regiões com escassez hídrica como partes do Brasil.', whyItMatters:'Dado primário para embasar a seção de métricas do TCC. Coloca WUE no centro da discussão de sustentabilidade.', connection:'TCC · WUE · impactos territoriais · Brasil', suggestedAction:'Levantar WUE de data centers declarados no Brasil via ANATEL e comparar com benchmark global.', sourceUrl:'#', kpis:[{val:'1.8 L/kWh',lbl:'WUE médio hiperescala'},{val:'~700 ml',lbl:'Água/conversa ChatGPT'},{val:'2030',lbl:'Meta 1.0 L/kWh Google'}], deepDiveContent:{ expanded:'Pesquisador Shaolei Ren (UC Riverside) estimou que treinar GPT-3 consumiu 700 mil litros de água potável. Em operação, o ChatGPT gasta entre 500 ml e 1 L por sessão. O Brasil, com pressão hídrica em bacias como Paraíba do Sul e no Nordeste, não exige reportagem de WUE nas licenças ambientais — lacuna regulatória relevante ao TCC.', applications:['Comparar WUE de cooling towers vs. adiabático vs. free cooling em clima tropical úmido','Quantificar impacto hídrico de um data center de 10 MW instalado na RMC (Campinas)','Propor índice composto PUE×WUE×CUE como métrica unificada'], steps:['Baixar "Making AI Less Thirsty" — Ren et al. 2023 (arXiv:2304.03271)','Consultar Atlas de Vulnerabilidade Hídrica (ANA)','Incluir WUE na metodologia do TCC como KPI secundário ao PUE'] } },
-    { id:2, category:'TCC', relevance:9.2, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:01:00.000Z', title:'Direct Liquid Cooling reduz PUE a 1,02 e abre oportunidade de reaproveitamento térmico', summary:'DLC e imersão bifásica eliminam chillers centralizados, reduzindo consumo energético em até 40%. O calor residual pode alimentar redes de district heating — modelo circular relevante para o Brasil.', whyItMatters:'Tecnologia central para a proposta de eficiência energética do TCC. Reduz PUE e CUE simultaneamente.', connection:'TCC · PUE · refrigeração · eficiência energética', suggestedAction:'Calcular payback energético de DLC vs. ar-condicionado para data center hipotético de 1 MW em SP.', sourceUrl:'#', kpis:[{val:'1.02',lbl:'PUE com imersão bifásica'},{val:'40%',lbl:'Redução consumo'},{val:'3–5 anos',lbl:'ROI estimado DLC'}], deepDiveContent:{ expanded:'DLC opera com cold plates acoplados aos processadores, circulando água a 40–60 °C. A imersão bifásica usa fluido dielétrico que evapora ao toque do chip. O calor residual a 60–80 °C é suficiente para aquecimento distrital.', applications:['Modelar TCO de data center 1 MW com DLC vs. CRAC por 10 anos','Avaliar viabilidade de district heating em campus universitário','Comparar CUE com mix energético da grid SP vs. renovável on-site'], steps:['Baixar whitepaper Green Grid "Liquid Cooling Guidelines"','Usar PUE Calculator do Uptime Institute','Adicionar capítulo de reaproveitamento térmico ao TCC'] } },
-    { id:3, category:'Carreira', relevance:8.9, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:02:00.000Z', title:'Nubank, C6 e Inter abrem vagas para modelagem de risco de crédito com ML', summary:'As maiores fintechs brasileiras buscam perfis com Python, SQL e experiência em portfólios de crédito. O diferencial: entender o negócio de crédito e traduzir resultados em decisões de política.', whyItMatters:'Intersecção exata do seu perfil: engenharia + dados + contexto de processos (Agibank) + interesse em crédito.', connection:'Carreira · crédito · fintechs · Python · ML', suggestedAction:'Construir projeto de credit scoring com dados públicos + documentação em inglês + deploy no Hugging Face.', sourceUrl:'#', kpis:[{val:'R$12k',lbl:'Faixa pleno fintechs'},{val:'3 etapas',lbl:'Processo seletivo médio'},{val:'87%',lbl:'Vagas com Python req.'}], deepDiveContent:{ expanded:'O Nubank usa XGBoost e LightGBM para scoring de pessoa física com feature engineering de dados comportamentais. O Agibank, onde você trabalha, é referência em crédito para desbancarizados — um diferencial raro em candidaturas.', applications:['Criar dataset de credit scoring com dados do UCI ML Repository','Implementar pipeline: EDA → XGBoost → SHAP explanations','Escrever README em inglês descrevendo decisões de negócio'], steps:['Configurar projeto no GitHub com estrutura profissional (src, notebooks, data)','Treinar modelo e gerar relatório de fairness','Publicar no LinkedIn com thread explicando a lógica de crédito'] } },
-    { id:4, category:'Engenharia', relevance:8.5, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:03:00.000Z', title:'LSTM supera ARIMA em 12% para previsão de carga em microgrids com alta penetração solar', summary:'Estudo na IEEE Transactions on Power Systems compara modelos de séries temporais. Redes LSTM com janela de 24h superam métodos clássicos em cenários de alta variabilidade de geração renovável.', whyItMatters:'Une engenharia elétrica e dados. Metodologia aplicável à modelagem de consumo energético de data centers no TCC.', connection:'TCC · engenharia elétrica · séries temporais · dados', suggestedAction:'Replicar o modelo LSTM em Python com dados da CCEE e publicar no GitHub.', sourceUrl:'#', kpis:[{val:'12%',lbl:'MAPE menor vs. ARIMA'},{val:'24h',lbl:'Janela look-back ótima'},{val:'15',lbl:'Microgrids no estudo'}], deepDiveContent:{ expanded:'Arquitetura: 2 camadas LSTM (64 e 32 unidades) + dropout 0.2 + Dense output. Dataset: 15 microgrids europeus com resolução de 15 min por 2 anos. O LSTM captura dependências de longo prazo que o ARIMA perde.', applications:['Modelar consumo horário de data center como função de temperatura + carga de TI','Gerar curva de PUE dinâmico ao longo do ano','Usar previsão de carga para otimização de compra de energia'], steps:['Acessar dados horários no OpenDataANEEL','Replicar LSTM com TensorFlow/Keras','Adicionar temperatura como variável exógena via INMET'] } },
-    { id:5, category:'Tecnologia', relevance:8.2, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:04:00.000Z', title:'Prefect 2.x: orquestração de workflows Python com curva de aprendizado 10x menor que Airflow', summary:'Alternativa moderna ao Apache Airflow. Com @flow e @task, transformar scripts Python em workflows monitorados leva minutos. Cloud free com 10k execuções/mês.', whyItMatters:'Aplicável ao trabalho de processos e qualidade no Agibank. Pode eliminar horas de trabalho manual repetitivo.', connection:'Carreira · automação · processos Agibank · engenharia de dados', suggestedAction:'Pegar 1 script Python do trabalho e transformar em flow Prefect com alerta por e-mail.', sourceUrl:'#', kpis:[{val:'10k',lbl:'Execuções/mês gratuitas'},{val:'< 5 min',lbl:'Setup inicial'},{val:'3 linhas',lbl:'Para converter script'}], deepDiveContent:{ expanded:'A conversão é literal: adicione @flow na função principal e @task nas subfunções. O Prefect UI local mostra logs, status e histórico em tempo real. Para o Agibank: automatize relatórios de qualidade, alertas de threshold e orquestração de scripts manuais.', applications:['Automatizar relatório semanal de KPIs com envio por e-mail/Teams','Criar pipeline de ingestão com alerta de anomalia','Montar portfólio de "Engenharia de Dados + Processos"'], steps:['pip install prefect && prefect server start','Converter script existente com @flow e @task','Agendar com IntervalSchedule'] } },
-    { id:6, category:'Francês', relevance:7.9, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:05:00.000Z', title:'Shadowing ativo: como poliglotas atingem fluência em 6 meses sem aulas formais', summary:'Repetir simultaneamente o áudio nativo em voz alta desenvolve prosódia, velocidade e automatismo lexical muito mais rápido que métodos passivos. Ganhos mensuráveis em 3 semanas de 15 min/dia.', whyItMatters:'Maior retorno por tempo investido para avançar no francês B1→B2 sem depender de horários fixos.', connection:'Francês · hábito diário · progressão B1→B2', suggestedAction:'Assinar transcrições gratuitas do InnerFrench e iniciar shadowing por 15 min nas manhãs por 21 dias.', sourceUrl:'#', kpis:[{val:'15 min',lbl:'Sessão diária mínima'},{val:'21 dias',lbl:'Para formar hábito'},{val:'B2',lbl:'Meta em 6 meses'}], deepDiveContent:{ expanded:'Arguelles sistematizou em 3 fases: (1) walking shadowing, (2) shadowing with text, (3) pure shadowing. InnerFrench (Hugo Cotton) tem episódios de 20 min com transcrição gratuita, velocidade natural mas vocabulário controlado.', applications:['Usar InnerFrench episódios sobre tecnologia para vocabulário técnico','Criar deck Anki com termos de engenharia em francês','Praticar durante trajeto — shadowing funciona em movimento'], steps:['Criar conta em innerfrench.com e baixar transcrição do Ep. 1','Instalar Anki com deck "French B1-B2 Vocabulary"','Gravar 30s de shadowing e ouvir de volta'] } },
-    { id:7, category:'Vida', relevance:7.6, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:06:00.000Z', title:'Sistema PARA: organização digital para quem gerencia TCC, trabalho e projetos simultâneos', summary:'Framework PARA (Projects, Areas, Resources, Archives) de Tiago Forte: organizar por onde você vai usar, não por tema. Ideal para múltiplos contextos simultâneos.', whyItMatters:'Você gerencia TCC, Agibank, francês, carreira e vida pessoal ao mesmo tempo. PARA foi feito exatamente para esse perfil.', connection:'Vida prática · TCC · produtividade · organização', suggestedAction:'Dedicar 45 minutos para criar a estrutura PARA no Notion/Drive e mover os 20 arquivos mais usados.', sourceUrl:'#', kpis:[{val:'4',lbl:'Categorias do sistema'},{val:'< 1h',lbl:'Setup inicial'},{val:'0',lbl:'Regras para decorar'}], deepDiveContent:{ expanded:'Projects (deadline — TCC, vaga), Areas (contínuo — Agibank, saúde), Resources (interesse — energia, ML), Archives (inativo). Regra de ouro: cada arquivo em um único lugar.', applications:['Criar estrutura PARA no Notion com templates de projeto para o TCC','Configurar inbox único para capturar links antes de classificar','Usar Projects como lista de resultados ativos — máximo 5 simultâneos'], steps:['Criar 4 pastas: 1 Projects, 2 Areas, 3 Resources, 4 Archives','Mover arquivos do TCC para "1 Projects/TCC [data defesa]"','Ler "The PARA Method" em fortelabs.com (20 min, gratuito)'] } },
-    { id:8, category:'Tecnologia', relevance:7.3, status:'active', generatedByAI:false, generated:false, createdAt:'2025-01-01T00:07:00.000Z', title:'F1 Telemetry com FastF1: acessando 300 sensores reais por corrida com Python', summary:'FastF1 acessa dados históricos oficiais da F1 gratuitamente — trajetória GPS, velocidade, pressão de freio, temperatura de pneu, DRS, ERS. Até 3 GB de dados por corrida a 100 Hz.', whyItMatters:'Caso de uso técnico de engenharia de dados em tempo real com alto apelo visual para portfólio.', connection:'Tecnologia · dados em tempo real · portfólio · engenharia', suggestedAction:'Rodar FastF1 e reproduzir análise de trajetória de volta rápida. Publicar no LinkedIn.', sourceUrl:'#', kpis:[{val:'300+',lbl:'Sensores por carro'},{val:'100 Hz',lbl:'Frequência de coleta'},{val:'3 GB',lbl:'Dados por corrida'}], deepDiveContent:{ expanded:'FastF1 expõe dados da Ergast API + telemetria oficial da F1: posição X/Y por milissegundo, velocidade, RPM, throttle %, brake %, temperatura de pneus. A AWS é parceira cloud da F1 para processamento em tempo real.', applications:['Comparar braking point de pilotos em Interlagos 2024','Analisar degradação de pneus ao longo de um stint','Criar dashboard interativo com Plotly/Dash'], steps:['pip install fastf1 matplotlib pandas','Reproduzir exemplo "Fastest Lap Gear Shift" da documentação','Escolher GP do Brasil 2024 — contexto local aumenta engajamento no LinkedIn'] } }
+    { id:1, category:'TCC', relevance:9.6, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:00:00.000Z', title:'Consumo de água em data centers de IA ultrapassa 1 trilhão de litros em 2024', summary:'Modelos como GPT-4 consomem volumes críticos de água para resfriamento evaporativo. O WUE médio de hiperescala chegou a 1,8 L/kWh — alarmante para regiões com escassez hídrica no Brasil.', whyItMatters:'Dado primário para embasar a seção de métricas do TCC. Coloca WUE no centro da discussão.', connection:'TCC · WUE · impactos territoriais · Brasil', suggestedAction:'Levantar WUE de data centers declarados no Brasil via ANATEL e comparar com benchmark global.', sourceUrl:'#', kpis:[{val:'1.8 L/kWh',lbl:'WUE médio hiperescala'},{val:'~700 ml',lbl:'Água/conversa ChatGPT'},{val:'2030',lbl:'Meta 1.0 L/kWh Google'}], deepDiveContent:{ expanded:'Pesquisador Shaolei Ren (UC Riverside) estimou que treinar GPT-3 consumiu 700 mil litros de água potável. Em operação, o ChatGPT gasta entre 500 ml e 1 L por sessão. O Brasil, com pressão hídrica em bacias como Paraíba do Sul, não exige reportagem de WUE nas licenças ambientais — lacuna regulatória relevante ao TCC.', applications:['Comparar WUE de cooling towers vs. adiabático vs. free cooling em clima tropical','Quantificar impacto hídrico de um DC de 10 MW instalado na RMC (Campinas)','Propor índice composto PUE×WUE×CUE como métrica unificada'], steps:['Baixar "Making AI Less Thirsty" — Ren et al. 2023 (arXiv:2304.03271)','Consultar Atlas de Vulnerabilidade Hídrica (ANA)','Incluir WUE na metodologia do TCC como KPI secundário ao PUE'] } },
+    { id:2, category:'TCC', relevance:9.2, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:01:00.000Z', title:'Direct Liquid Cooling reduz PUE a 1,02 e abre oportunidade de reaproveitamento térmico', summary:'DLC e imersão bifásica eliminam chillers centralizados, reduzindo consumo em até 40%. Calor residual pode alimentar district heating — modelo circular relevante para o Brasil.', whyItMatters:'Tecnologia central para a proposta de eficiência energética do TCC.', connection:'TCC · PUE · refrigeração · eficiência energética', suggestedAction:'Calcular payback energético de DLC vs. ar-condicionado para DC hipotético de 1 MW em SP.', sourceUrl:'#', kpis:[{val:'1.02',lbl:'PUE com imersão bifásica'},{val:'40%',lbl:'Redução consumo'},{val:'3–5 anos',lbl:'ROI estimado DLC'}], deepDiveContent:{ expanded:'DLC opera com cold plates acoplados aos processadores, circulando água a 40–60 °C. A imersão bifásica usa fluido dielétrico que evapora ao toque do chip. O calor residual a 60–80 °C é suficiente para aquecimento distrital.', applications:['Modelar TCO de DC 1 MW com DLC vs. CRAC por 10 anos','Avaliar viabilidade de district heating em campus universitário','Comparar CUE com mix energético da grid SP vs. renovável on-site'], steps:['Baixar whitepaper Green Grid "Liquid Cooling Guidelines"','Usar PUE Calculator do Uptime Institute','Adicionar capítulo de reaproveitamento térmico ao TCC'] } },
+    { id:3, category:'Carreira', relevance:8.9, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:02:00.000Z', title:'Nubank, C6 e Inter abrem vagas para modelagem de risco de crédito com ML', summary:'As maiores fintechs brasileiras buscam perfis com Python, SQL e experiência em portfólios de crédito. Diferencial: entender o negócio de crédito e traduzir em decisões de política.', whyItMatters:'Intersecção exata do seu perfil: engenharia + dados + contexto de processos (Agibank) + interesse em crédito.', connection:'Carreira · crédito · fintechs · Python · ML', suggestedAction:'Construir projeto de credit scoring com dados públicos + documentação em inglês + deploy no Hugging Face.', sourceUrl:'#', kpis:[{val:'R$12k',lbl:'Faixa pleno fintechs'},{val:'3 etapas',lbl:'Processo seletivo'},{val:'87%',lbl:'Vagas com Python req.'}], deepDiveContent:{ expanded:'O Nubank usa XGBoost e LightGBM para scoring de pessoa física. O Agibank, onde você trabalha, é referência em crédito para desbancarizados — um diferencial raro em candidaturas.', applications:['Criar dataset de credit scoring com dados do UCI ML Repository','Implementar pipeline: EDA → XGBoost → SHAP explanations','Escrever README em inglês descrevendo decisões de negócio'], steps:['Configurar projeto no GitHub com estrutura profissional','Treinar modelo e gerar relatório de fairness','Publicar no LinkedIn com thread explicando a lógica de crédito'] } },
+    { id:4, category:'Engenharia', relevance:8.5, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:03:00.000Z', title:'LSTM supera ARIMA em 12% para previsão de carga em microgrids com alta penetração solar', summary:'Estudo na IEEE Transactions on Power Systems: redes LSTM com janela de 24h superam ARIMA em cenários de alta variabilidade de geração renovável.', whyItMatters:'Une engenharia elétrica e dados. Metodologia aplicável à modelagem de consumo de data centers no TCC.', connection:'TCC · engenharia elétrica · séries temporais · dados', suggestedAction:'Replicar o modelo LSTM em Python com dados da CCEE e publicar no GitHub.', sourceUrl:'#', kpis:[{val:'12%',lbl:'MAPE menor vs. ARIMA'},{val:'24h',lbl:'Janela look-back ótima'},{val:'15',lbl:'Microgrids no estudo'}], deepDiveContent:{ expanded:'Arquitetura: 2 camadas LSTM (64 e 32 unidades) + dropout 0.2 + Dense output. Dataset: 15 microgrids europeus com resolução de 15 min por 2 anos. O LSTM captura dependências de longo prazo que o ARIMA perde.', applications:['Modelar consumo horário de DC como função de temperatura + carga de TI','Gerar curva de PUE dinâmico ao longo do ano','Usar previsão de carga para otimização de compra de energia'], steps:['Acessar dados horários no OpenDataANEEL','Replicar LSTM com TensorFlow/Keras','Adicionar temperatura como variável exógena via INMET'] } },
+    { id:5, category:'Tecnologia', relevance:8.2, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:04:00.000Z', title:'Prefect 2.x: orquestração de workflows Python com curva de aprendizado 10x menor que Airflow', summary:'Alternativa moderna ao Apache Airflow. Com @flow e @task, transformar scripts Python em workflows monitorados leva minutos. Cloud free com 10k execuções/mês.', whyItMatters:'Aplicável ao trabalho de processos e qualidade no Agibank. Pode eliminar horas de trabalho manual.', connection:'Carreira · automação · processos Agibank · engenharia de dados', suggestedAction:'Pegar 1 script Python do trabalho e transformar em flow Prefect com alerta por e-mail.', sourceUrl:'#', kpis:[{val:'10k',lbl:'Execuções/mês gratuitas'},{val:'< 5 min',lbl:'Setup inicial'},{val:'3 linhas',lbl:'Para converter script'}], deepDiveContent:{ expanded:'A conversão é literal: adicione @flow na função principal e @task nas subfunções. O Prefect UI local mostra logs e histórico em tempo real.', applications:['Automatizar relatório semanal de KPIs com envio por e-mail','Criar pipeline de ingestão com alerta de anomalia','Montar portfólio de Engenharia de Dados + Processos'], steps:['pip install prefect && prefect server start','Converter script existente com @flow e @task','Agendar com IntervalSchedule'] } },
+    { id:6, category:'Francês', relevance:7.9, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:05:00.000Z', title:'Shadowing ativo: como poliglotas atingem fluência em 6 meses sem aulas formais', summary:'Repetir simultaneamente o áudio nativo em voz alta desenvolve prosódia, velocidade e automatismo lexical muito mais rápido que métodos passivos. Ganhos em 3 semanas de 15 min/dia.', whyItMatters:'Maior retorno por tempo investido para avançar no francês B1→B2 sem horários fixos.', connection:'Francês · hábito diário · progressão B1→B2', suggestedAction:'Assinar transcrições gratuitas do InnerFrench e iniciar shadowing por 15 min nas manhãs por 21 dias.', sourceUrl:'#', kpis:[{val:'15 min',lbl:'Sessão diária mínima'},{val:'21 dias',lbl:'Para formar hábito'},{val:'B2',lbl:'Meta em 6 meses'}], deepDiveContent:{ expanded:'Arguelles sistematizou em 3 fases: walking shadowing, shadowing with text, pure shadowing. InnerFrench (Hugo Cotton) tem episódios de 20 min com transcrição gratuita.', applications:['Usar InnerFrench episódios sobre tecnologia para vocabulário técnico','Criar deck Anki com termos de engenharia em francês','Praticar durante trajeto — funciona em movimento'], steps:['Criar conta em innerfrench.com e baixar transcrição do Ep. 1','Instalar Anki com deck "French B1-B2 Vocabulary"','Gravar 30s de shadowing e ouvir de volta'] } },
+    { id:7, category:'Vida', relevance:7.6, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:06:00.000Z', title:'Sistema PARA: organização digital para quem gerencia TCC, trabalho e projetos simultâneos', summary:'Framework PARA (Projects, Areas, Resources, Archives) de Tiago Forte: organizar por onde você vai usar, não por tema.', whyItMatters:'Você gerencia TCC, Agibank, francês e carreira ao mesmo tempo. PARA foi feito para esse perfil.', connection:'Vida prática · TCC · produtividade · organização', suggestedAction:'Dedicar 45 minutos para criar a estrutura PARA no Notion/Drive e mover os 20 arquivos mais usados.', sourceUrl:'#', kpis:[{val:'4',lbl:'Categorias do sistema'},{val:'< 1h',lbl:'Setup inicial'},{val:'0',lbl:'Regras para decorar'}], deepDiveContent:{ expanded:'Projects (deadline — TCC, vaga), Areas (contínuo — Agibank, saúde), Resources (interesse — energia, ML), Archives (inativo). Regra de ouro: cada arquivo em um único lugar.', applications:['Criar estrutura PARA no Notion com templates para o TCC','Configurar inbox único para capturar links antes de classificar','Usar Projects como lista de resultados ativos — máximo 5 simultâneos'], steps:['Criar 4 pastas: 1 Projects, 2 Areas, 3 Resources, 4 Archives','Mover arquivos do TCC para "1 Projects/TCC [data defesa]"','Ler "The PARA Method" em fortelabs.com (20 min, gratuito)'] } },
+    { id:8, category:'Tecnologia', relevance:7.3, status:'active', generatedByAI:false, generated:false, fromBriefing:false, createdAt:'2025-01-01T00:07:00.000Z', title:'F1 Telemetry com FastF1: acessando 300 sensores reais por corrida com Python', summary:'FastF1 acessa dados históricos oficiais da F1 gratuitamente — GPS, velocidade, freio, temperatura de pneu, DRS, ERS. Até 3 GB de dados por corrida a 100 Hz.', whyItMatters:'Caso de uso técnico de dados em tempo real com alto apelo visual para portfólio.', connection:'Tecnologia · dados em tempo real · portfólio · engenharia', suggestedAction:'Rodar FastF1 e reproduzir análise de trajetória de volta rápida. Publicar no LinkedIn.', sourceUrl:'#', kpis:[{val:'300+',lbl:'Sensores por carro'},{val:'100 Hz',lbl:'Frequência de coleta'},{val:'3 GB',lbl:'Dados por corrida'}], deepDiveContent:{ expanded:'FastF1 expõe dados da Ergast API + telemetria oficial da F1: posição X/Y por milissegundo, RPM, throttle %, brake %, temperatura de pneus.', applications:['Comparar braking point de pilotos em Interlagos 2024','Analisar degradação de pneus ao longo de um stint','Criar dashboard interativo com Plotly/Dash'], steps:['pip install fastf1 matplotlib pandas','Reproduzir exemplo "Fastest Lap Gear Shift" da documentação','Escolher GP do Brasil 2024 para análise'] } }
   ];
 }
 
 // ============================================================
-//  PERSISTÊNCIA — localStorage
+//  PERSISTÊNCIA
 // ============================================================
-const LS_KEY = 'pulse_v3_cards';
+const LS_KEY          = 'pulse_v4_cards';
+const LS_BRIEFING_KEY = 'pulse_v4_briefing';
 
 function saveCards() {
   try { localStorage.setItem(LS_KEY, JSON.stringify(state.cards)); }
@@ -649,13 +810,23 @@ function saveCards() {
 
 function loadCards() {
   try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) {
-      // Migra do v0.2 se existir
-      const v2 = localStorage.getItem('pulse_v2_cards');
-      if (v2) return JSON.parse(v2);
-    }
-    if (raw) { const p = JSON.parse(raw); if (Array.isArray(p) && p.length > 0) return p; }
+    const raw = localStorage.getItem(LS_KEY)
+             || localStorage.getItem('pulse_v3_cards')
+             || localStorage.getItem('pulse_v2_cards');
+    if (raw) { const p = JSON.parse(raw); if (Array.isArray(p) && p.length) return p; }
+  } catch(e) {}
+  return null;
+}
+
+function saveBriefing(b) {
+  try { localStorage.setItem(LS_BRIEFING_KEY, JSON.stringify(b)); }
+  catch(e) {}
+}
+
+function loadBriefing() {
+  try {
+    const raw = localStorage.getItem(LS_BRIEFING_KEY);
+    if (raw) return JSON.parse(raw);
   } catch(e) {}
   return null;
 }
@@ -666,7 +837,9 @@ function loadCards() {
 const state = {
   cards: [],
   filter: 'all',
-  sortByRelevance: true
+  sortByRelevance: true,
+  briefing: null,              // briefing atual (do dia ou carregado do LS)
+  briefingAddedIds: new Set(), // ids de cards do briefing já adicionados ao feed
 };
 
 // ============================================================
@@ -689,15 +862,14 @@ function showToast(msg, type = '') {
 }
 
 function updateStats() {
-  const active  = state.cards.filter(c => c.status !== 'ignored');
-  const useful  = state.cards.filter(c => c.status === 'useful').length;
-  const aiCards = state.cards.filter(c => c.generatedByAI).length;
-  const avgRel  = active.length > 0
-    ? (active.reduce((s, c) => s + c.relevance, 0) / active.length).toFixed(1) : '—';
+  const active = state.cards.filter(c => c.status !== 'ignored');
+  const useful = state.cards.filter(c => c.status === 'useful').length;
+  const aiC    = state.cards.filter(c => c.generatedByAI).length;
+  const avg    = active.length ? (active.reduce((s,c)=>s+c.relevance,0)/active.length).toFixed(1) : '—';
   document.getElementById('stat-useful').textContent = useful;
   document.getElementById('stat-total').textContent  = active.length;
-  document.getElementById('stat-avg').textContent    = avgRel;
-  document.getElementById('stat-ai').textContent     = aiCards;
+  document.getElementById('stat-avg').textContent    = avg;
+  document.getElementById('stat-ai').textContent     = aiC;
 }
 
 function updateCounts() {
@@ -715,46 +887,71 @@ function updateCounts() {
 })();
 
 // ============================================================
-//  NORMALIZAR CARD VINDO DA IA
-//  Mapeia os campos retornados pela função Netlify para o
-//  esquema interno do Pulse (compatível com edição/export)
+//  NORMALIZE AI CARD (vindo da Netlify Function generate-card)
 // ============================================================
 function normalizeAICard(raw, inputText) {
   const dd = raw.deepDiveContent || {};
-
-  // Divide campos do deepDive que a IA retorna como string separada por |
-  const toArray = (str) =>
-    typeof str === 'string'
-      ? str.split('|').map(s => s.trim()).filter(Boolean)
-      : Array.isArray(str) ? str : [];
-
+  const toArray = (v) => Array.isArray(v) ? v : typeof v === 'string' ? v.split('|').map(s=>s.trim()).filter(Boolean) : [];
   return {
-    id:            Date.now(),
-    category:      raw.category       || 'Tecnologia',
-    relevance:     parseFloat(raw.relevance) || 7.5,
-    status:        'active',
-    generatedByAI: true,
-    generated:     true,
-    createdAt:     new Date().toISOString(),
-    title:         raw.title          || inputText.slice(0, 100),
-    summary:       raw.summary        || '',
-    whyItMatters:  raw.whyItMatters   || '',
-    connection:    raw.connection     || '',
+    id: Date.now(), category: raw.category || 'Tecnologia',
+    relevance: parseFloat(raw.relevance) || 7.5,
+    status: 'active', generatedByAI: true, generated: true, fromBriefing: false,
+    createdAt: new Date().toISOString(),
+    title: raw.title || inputText.slice(0, 100),
+    summary: raw.summary || '',
+    whyItMatters: raw.whyItMatters || '',
+    connection: raw.connection || '',
     suggestedAction: raw.suggestedAction || '',
-    sourceUrl:     raw.sourceUrl      || '',
-    kpis:          null,
+    sourceUrl: raw.sourceUrl || '',
+    kpis: null,
     deepDiveContent: {
-      expanded:     dd.expandedSummary   || raw.summary || '',
-      howToUse:     dd.howToUse          || '',
-      applications: toArray(dd.practicalApplications),
-      steps:        toArray(dd.nextSteps),
+      expanded: dd.expanded || dd.expandedSummary || raw.summary || '',
+      howToUse: dd.howToUse || '',
+      applications: toArray(dd.applications || dd.practicalApplications),
+      steps: toArray(dd.steps || dd.nextSteps),
     }
   };
 }
 
 // ============================================================
-//  RENDERIZAÇÃO DO CARD
+//  NORMALIZE BRIEFING CARD (vindo de generate-briefing)
 // ============================================================
+function normalizeBriefingCard(raw, index) {
+  const dd = raw.deepDiveContent || {};
+  const toArray = (v) => Array.isArray(v) ? v : typeof v === 'string' ? v.split('|').map(s=>s.trim()).filter(Boolean) : [];
+  return {
+    id: Date.now() + index,
+    category: raw.category || 'TCC',
+    relevance: Math.min(10, Math.max(0, parseFloat(raw.relevance) || 7.5)),
+    status: 'active',
+    generatedByAI: true,
+    generated: true,
+    fromBriefing: true,
+    priority: raw.priority || 'Média',
+    estimatedTime: raw.estimatedTime || '—',
+    createdAt: new Date().toISOString(),
+    title: raw.title || 'Card do briefing',
+    summary: raw.summary || '',
+    whyItMatters: raw.whyItMatters || '',
+    connection: raw.connection || '',
+    suggestedAction: raw.suggestedAction || '',
+    sourceUrl: raw.sourceUrl || '',
+    kpis: null,
+    deepDiveContent: {
+      expanded: dd.expanded || raw.summary || '',
+      applications: toArray(dd.applications),
+      steps: toArray(dd.steps),
+    }
+  };
+}
+
+// ============================================================
+//  RENDERIZAÇÃO DO CARD (feed principal)
+// ============================================================
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function buildCard(card) {
   const cfg = CAT[card.category] || { color:'#4a8eff', bg:'rgba(74,142,255,0.1)', border:'rgba(74,142,255,0.22)', emoji:'◉' };
   const sc   = scoreColor(card.relevance);
@@ -764,30 +961,22 @@ function buildCard(card) {
 
   const el = document.createElement('div');
   el.className = 'card'
-    + (isUseful  ? ' state-useful'         : '')
-    + (isIgnored ? ' state-ignored'        : '')
-    + (card.generatedByAI ? ' state-generated' : card.generated ? ' state-generated-local' : '');
+    + (isUseful         ? ' state-useful'         : '')
+    + (isIgnored        ? ' state-ignored'         : '')
+    + (card.fromBriefing? ' state-from-briefing'   : card.generatedByAI ? ' state-generated' : card.generated ? ' state-generated-local' : '');
   el.dataset.id  = card.id;
   el.dataset.cat = card.category;
   el.style.setProperty('--card-color', cfg.color);
 
-  const kpisHtml = card.kpis ? `
-    <div class="card-kpis">${card.kpis.map(k=>`
-      <div class="card-kpi">
-        <div class="card-kpi-val" style="color:${cfg.color}">${k.val}</div>
-        <div class="card-kpi-lbl">${k.lbl}</div>
-      </div>`).join('')}
-    </div>` : '';
+  const kpisHtml = card.kpis ? `<div class="card-kpis">${card.kpis.map(k=>`<div class="card-kpi"><div class="card-kpi-val" style="color:${cfg.color}">${k.val}</div><div class="card-kpi-lbl">${k.lbl}</div></div>`).join('')}</div>` : '';
 
-  const tsHtml = card.createdAt
-    ? `<span style="font-size:10px;color:var(--text-3);font-family:'Geist Mono',monospace;">${new Date(card.createdAt).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'})}</span>`
-    : '';
+  const tsHtml = card.createdAt ? `<span style="font-size:10px;color:var(--text-3);font-family:'Geist Mono',monospace;">${new Date(card.createdAt).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'2-digit'})}</span>` : '';
 
-  const sourceChip = card.generatedByAI
-    ? '<span class="ai-chip">✦ IA</span>'
-    : card.generated
-      ? '<span class="local-chip">⚡ local</span>'
-      : '';
+  const sourceChip = card.fromBriefing
+    ? '<span class="briefing-chip">🧠 Briefing</span>'
+    : card.generatedByAI
+      ? '<span class="ai-chip">✦ IA</span>'
+      : card.generated ? '<span class="local-chip">⚡ local</span>' : '';
 
   el.innerHTML = `
     <div class="card-accent-bar"></div>
@@ -795,8 +984,7 @@ function buildCard(card) {
       <div class="card-row1">
         <div class="card-left-meta">
           <span class="cat-chip" style="color:${cfg.color};background:${cfg.bg};border-color:${cfg.border};">${cfg.emoji} ${card.category}</span>
-          ${sourceChip}
-          ${tsHtml}
+          ${sourceChip}${tsHtml}
         </div>
         <div class="rel-score">
           <div class="rel-bar-wrap"><div class="rel-bar-fill" style="width:${fill}%;background:${sc};"></div></div>
@@ -807,18 +995,9 @@ function buildCard(card) {
       <div class="card-summary">${escHtml(card.summary)}</div>
       ${kpisHtml}
       <div class="card-insights">
-        <div class="insight">
-          <div class="ins-label"><span class="ins-dot"></span>Por que importa</div>
-          <div class="ins-text">${escHtml(card.whyItMatters || '')}</div>
-        </div>
-        <div class="insight">
-          <div class="ins-label"><span class="ins-dot"></span>Conexão com objetivos</div>
-          <div class="ins-text">${escHtml(card.connection || '')}</div>
-        </div>
-        <div class="insight full">
-          <div class="ins-label"><span class="ins-dot"></span>Ação sugerida</div>
-          <div class="ins-text"><strong>${escHtml(card.suggestedAction || '')}</strong></div>
-        </div>
+        <div class="insight"><div class="ins-label"><span class="ins-dot"></span>Por que importa</div><div class="ins-text">${escHtml(card.whyItMatters||'')}</div></div>
+        <div class="insight"><div class="ins-label"><span class="ins-dot"></span>Conexão com objetivos</div><div class="ins-text">${escHtml(card.connection||'')}</div></div>
+        <div class="insight full"><div class="ins-label"><span class="ins-dot"></span>Ação sugerida</div><div class="ins-text"><strong>${escHtml(card.suggestedAction||'')}</strong></div></div>
       </div>
     </div>
     <div class="card-footer">
@@ -828,15 +1007,11 @@ function buildCard(card) {
         <button class="act-btn btn-edit" data-action="edit" data-id="${card.id}">✏️ Editar</button>
         <button class="act-btn btn-delete" data-action="delete" data-id="${card.id}">🗑</button>
         <button class="act-btn btn-dive" data-action="dive" data-id="${card.id}">🔍 Deep Dive</button>
+        <button class="act-btn btn-mission" data-action="mission" data-id="${card.id}">🎯 Missão</button>
       </div>
       <a class="card-src" href="${card.sourceUrl||'#'}" target="_blank" rel="noopener">↗ fonte</a>
     </div>`;
   return el;
-}
-
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 // ============================================================
@@ -844,13 +1019,9 @@ function escHtml(str) {
 // ============================================================
 function renderFeed(animated = false) {
   const list = document.getElementById('feedList');
-  let cards = state.cards.filter(c =>
-    c.status !== 'ignored' && (state.filter === 'all' || c.category === state.filter)
-  );
+  let cards = state.cards.filter(c => c.status !== 'ignored' && (state.filter === 'all' || c.category === state.filter));
   if (state.sortByRelevance) cards = [...cards].sort((a,b) => b.relevance - a.relevance);
-  const ignored = state.cards.filter(c =>
-    c.status === 'ignored' && (state.filter === 'all' || c.category === state.filter)
-  );
+  const ignored = state.cards.filter(c => c.status === 'ignored' && (state.filter === 'all' || c.category === state.filter));
   const doRender = () => {
     list.innerHTML = '';
     cards.forEach((card, i) => {
@@ -879,28 +1050,14 @@ document.getElementById('feedList').addEventListener('click', function(e) {
   const action = btn.dataset.action;
   const card   = state.cards.find(c => c.id === id);
   if (!card) return;
-
-  if (action === 'useful') {
-    card.status = card.status === 'useful' ? 'active' : 'useful';
-    saveCards();
-    showToast(card.status === 'useful' ? '✓ Marcado como útil' : 'Marcação removida');
-    renderFeed();
-  }
-  if (action === 'ignore') {
-    card.status = 'ignored'; saveCards();
-    showToast('Card ocultado do feed.'); renderFeed(true);
-  }
-  if (action === 'dive') openDiveModal(card);
-  if (action === 'edit') openEditModal(card);
+  if (action === 'useful') { card.status = card.status === 'useful' ? 'active' : 'useful'; saveCards(); showToast(card.status === 'useful' ? '✓ Marcado como útil' : 'Marcação removida'); renderFeed(); }
+  if (action === 'ignore') { card.status = 'ignored'; saveCards(); showToast('Card ocultado.'); renderFeed(true); }
+  if (action === 'dive')    openDiveModal(card);
+  if (action === 'edit')    openEditModal(card);
+  if (action === 'mission') openMissionModal(card);
   if (action === 'delete') {
-    openConfirm({
-      icon:'🗑️', title:'Excluir card?',
-      sub:`"${card.title.slice(0,55)}…" será removido permanentemente.`,
-      okLabel:'Excluir', okClass:'',
-      onOk:() => {
-        state.cards = state.cards.filter(c => c.id !== id);
-        saveCards(); showToast('Card excluído.'); renderFeed(true);
-      }
+    openConfirm({ icon:'🗑️', title:'Excluir card?', sub:`"${card.title.slice(0,55)}…" será removido permanentemente.`, okLabel:'Excluir', okClass:'',
+      onOk:() => { state.cards = state.cards.filter(c => c.id !== id); saveCards(); showToast('Card excluído.'); renderFeed(true); }
     });
   }
 });
@@ -920,17 +1077,11 @@ document.getElementById('filterGroup').addEventListener('click', function(e) {
 // ============================================================
 //  ORDENAÇÃO
 // ============================================================
-document.getElementById('sortRel').addEventListener('click', function() {
-  state.sortByRelevance = true; this.classList.add('active');
-  document.getElementById('sortChron').classList.remove('active'); renderFeed(true);
-});
-document.getElementById('sortChron').addEventListener('click', function() {
-  state.sortByRelevance = false; this.classList.add('active');
-  document.getElementById('sortRel').classList.remove('active'); renderFeed(true);
-});
+document.getElementById('sortRel').addEventListener('click', function() { state.sortByRelevance = true; this.classList.add('active'); document.getElementById('sortChron').classList.remove('active'); renderFeed(true); });
+document.getElementById('sortChron').addEventListener('click', function() { state.sortByRelevance = false; this.classList.add('active'); document.getElementById('sortRel').classList.remove('active'); renderFeed(true); });
 
 // ============================================================
-//  GERAÇÃO COM IA — função principal
+//  GERAÇÃO DE CARD INDIVIDUAL COM IA
 // ============================================================
 const btnGen   = document.getElementById('generateBtn');
 const btnIcon  = document.getElementById('btnIcon');
@@ -940,31 +1091,21 @@ const inputBar = document.getElementById('inputBar');
 const aiBar    = document.getElementById('aiModeBar');
 const aiText   = document.getElementById('aiModeText');
 
-// Mostrar barra de status da IA ao focar
-inputEl.addEventListener('focus', () => {
-  aiBar.classList.remove('hidden');
-  aiText.textContent = 'IA pronta — cole qualquer link, artigo, ideia ou tema';
-});
-inputEl.addEventListener('blur', () => {
-  if (!inputEl.value.trim()) aiBar.classList.add('hidden');
-});
+inputEl.addEventListener('focus', () => { aiBar.classList.remove('hidden'); aiText.textContent = 'IA pronta — cole qualquer link, artigo, ideia ou tema'; });
+inputEl.addEventListener('blur', () => { if (!inputEl.value.trim()) aiBar.classList.add('hidden'); });
 
 function setLoadingState(isLoading) {
-  btnGen.disabled = isLoading;
-  inputEl.disabled = isLoading;
+  btnGen.disabled = isLoading; inputEl.disabled = isLoading;
   if (isLoading) {
     btnGen.classList.add('state-loading');
     btnIcon.innerHTML = '<span class="spinner"></span>';
     btnLabel.textContent = 'Analisando…';
     inputBar.classList.add('loading');
-    aiBar.classList.remove('hidden', 'fallback');
-    aiText.textContent = '✦ IA analisando o conteúdo para o perfil do Lucas…';
+    aiBar.classList.remove('hidden','fallback'); aiText.textContent = '✦ IA analisando o conteúdo…';
   } else {
-    btnGen.classList.remove('state-loading', 'state-error');
-    btnIcon.textContent = '✦';
-    btnLabel.textContent = 'Gerar com IA';
-    inputBar.classList.remove('loading');
-    inputEl.disabled = false;
+    btnGen.classList.remove('state-loading','state-error');
+    btnIcon.textContent = '✦'; btnLabel.textContent = 'Gerar com IA';
+    inputBar.classList.remove('loading'); inputEl.disabled = false;
   }
 }
 
@@ -974,72 +1115,181 @@ inputEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !btnGen.disa
 async function generateWithAI() {
   const text = inputEl.value.trim();
   if (!text) { inputEl.focus(); return; }
-
   setLoadingState(true);
-
   try {
-    // ── Chama a Netlify Function ───────────────────────────
-    const res = await fetch('/.netlify/functions/generate-card', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ input: text }),
-    });
-
-    // Timeout de rede já é gerenciado pelo fetch nativo
+    const res  = await fetch('/.netlify/functions/generate-card', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({input:text}) });
     const data = await res.json();
-
-    if (!res.ok || data.error) {
-      throw new Error(data.error || `Erro HTTP ${res.status}`);
-    }
-
-    // Sucesso — normaliza e salva o card
+    if (!res.ok || data.error) throw new Error(data.error || `Erro HTTP ${res.status}`);
     const newCard = normalizeAICard(data.card, text);
-    state.cards.unshift(newCard);
-    saveCards();
-    inputEl.value = '';
-    renderFeed(true);
-
-    // Feedback visual de sucesso
-    aiBar.classList.remove('hidden', 'fallback');
-    aiText.textContent = `✓ Card gerado por IA · categoria "${newCard.category}" · relevância ${newCard.relevance.toFixed(1)}`;
+    state.cards.unshift(newCard); saveCards(); inputEl.value = ''; renderFeed(true);
+    aiBar.classList.remove('hidden','fallback');
+    aiText.textContent = `✓ Card gerado por IA · "${newCard.category}" · ${newCard.relevance.toFixed(1)}`;
     showToast(`✦ Card criado por IA — "${newCard.title.slice(0,45)}…"`);
-
   } catch (err) {
     console.warn('[Pulse] Falha na IA:', err.message);
-
-    // ── Fallback local ─────────────────────────────────────
     const newCard = localFallback(text);
-    state.cards.unshift(newCard);
-    saveCards();
-    inputEl.value = '';
-    renderFeed(true);
-
-    // Feedback de fallback
-    aiBar.classList.remove('hidden');
-    aiBar.classList.add('fallback');
-    aiText.textContent = '⚠ IA indisponível — card gerado localmente com classificação básica';
-
-    // Mensagem de erro amigável
-    const friendlyMsg = err.message.includes('Failed to fetch')
-      ? '⚠ Sem conexão com a função. Card salvo localmente como fallback.'
-      : `⚠ IA: ${err.message.slice(0,60)}. Card salvo localmente.`;
+    state.cards.unshift(newCard); saveCards(); inputEl.value = ''; renderFeed(true);
+    aiBar.classList.remove('hidden'); aiBar.classList.add('fallback');
+    aiText.textContent = '⚠ IA indisponível — card gerado localmente';
+    const friendlyMsg = err.message.includes('Failed to fetch') ? '⚠ Sem conexão. Card salvo localmente.' : `⚠ IA: ${err.message.slice(0,60)}. Card salvo localmente.`;
     showToast(friendlyMsg, 'error');
+    btnGen.classList.add('state-error'); setTimeout(() => btnGen.classList.remove('state-error'), 3000);
+  } finally { setLoadingState(false); }
+}
 
-    // Destaca o botão como erro brevemente
-    btnGen.classList.add('state-error');
-    setTimeout(() => btnGen.classList.remove('state-error'), 3000);
+// ============================================================
+//  DAILY INTELLIGENCE BRIEFING
+// ============================================================
+const btnBriefing = document.getElementById('btnGenerateBriefing');
+const briefingSection = document.getElementById('briefingSection');
+
+btnBriefing.addEventListener('click', generateBriefing);
+
+async function generateBriefing() {
+  btnBriefing.disabled = true;
+  btnBriefing.querySelector('span:nth-child(2)').textContent = 'Gerando briefing com IA…';
+  btnBriefing.querySelector('.briefing-btn-icon').textContent = '⏳';
+
+  try {
+    const res  = await fetch('/.netlify/functions/generate-briefing', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || `Erro HTTP ${res.status}`);
+
+    const briefing = data.briefing;
+    // Normaliza os cards do briefing
+    briefing.cards = (briefing.cards || []).map((c, i) => normalizeBriefingCard(c, i));
+    state.briefing = briefing;
+    state.briefingAddedIds = new Set();
+    saveBriefing({ ...briefing, cards: briefing.cards }); // salva sem IDs incrementais estáticos
+
+    renderBriefingSection(briefing);
+    briefingSection.style.display = 'block';
+    briefingSection.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    showToast('🧠 Briefing do dia gerado com sucesso!');
+
+  } catch (err) {
+    console.error('[Pulse/Briefing] Erro:', err.message);
+    showToast(`⚠ Erro ao gerar briefing: ${err.message.slice(0,60)}`, 'error');
   } finally {
-    setLoadingState(false);
+    btnBriefing.disabled = false;
+    btnBriefing.querySelector('span:nth-child(2)').textContent = 'Gerar briefing do dia com IA';
+    btnBriefing.querySelector('.briefing-btn-icon').textContent = '🧠';
+  }
+}
+
+function renderBriefingSection(briefing) {
+  const today = new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
+  const cardsHtml = (briefing.cards || []).map((card, i) => {
+    const cfg = CAT[card.category] || { color:'#4a8eff', emoji:'◉' };
+    const sc  = scoreColor(card.relevance);
+    const priClass = (card.priority||'').toLowerCase() === 'alta' ? 'alta' : (card.priority||'').toLowerCase() === 'baixa' ? 'baixa' : 'media';
+    return `
+      <div class="briefing-card" data-bindex="${i}">
+        <div class="briefing-card-row1">
+          <span class="cat-chip" style="color:${cfg.color};background:${cfg.bg};border-color:${cfg.border};">${cfg.emoji} ${card.category}</span>
+          <span class="briefing-priority ${priClass}">${card.priority||'Média'}</span>
+          <span class="briefing-time">⏱ ${card.estimatedTime||'—'}</span>
+          <span class="briefing-rel" style="color:${sc}">${card.relevance.toFixed(1)}</span>
+        </div>
+        <div class="briefing-card-title">${escHtml(card.title)}</div>
+        <div class="briefing-card-summary">${escHtml(card.summary)}</div>
+        <div class="briefing-card-action">→ ${escHtml(card.suggestedAction||'')}</div>
+        <div class="briefing-card-footer">
+          <button class="btn-briefing-add" data-baction="add" data-bindex="${i}">+ Adicionar ao feed</button>
+          <button class="btn-briefing-dive" data-baction="dive" data-bindex="${i}">🔍 Deep Dive</button>
+          <button class="btn-briefing-mission" data-baction="mission" data-bindex="${i}">🎯 Missão</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  briefingSection.innerHTML = `
+    <div class="briefing-header">
+      <div class="briefing-header-left">
+        <div class="briefing-icon">🧠</div>
+        <div class="briefing-label-row">
+          <div class="briefing-eyebrow">Daily Intelligence Briefing</div>
+          <div class="briefing-headline">${escHtml(briefing.headline || 'Seu dia começa aqui.')}</div>
+        </div>
+      </div>
+      <div class="briefing-header-right">
+        <span class="briefing-date">${today}</span>
+        <button class="btn-add-all" id="btnAddAll">+ Adicionar todos ao feed</button>
+        <button class="btn-hide-briefing" id="btnHideBriefing">Ocultar</button>
+      </div>
+    </div>
+    <div class="briefing-focus">
+      <span class="briefing-focus-label">Foco de hoje</span>
+      <span class="briefing-focus-text">${escHtml(briefing.focus || '—')}</span>
+    </div>
+    <div class="briefing-cards-grid" id="briefingCardsGrid">${cardsHtml}</div>
+    <div class="briefing-footer">
+      <span class="briefing-footer-text">${(briefing.cards||[]).length} cards · gerado com Gemini · ${briefing.date || new Date().toISOString().slice(0,10)}</span>
+    </div>`;
+
+  // Eventos internos do briefing
+  document.getElementById('btnHideBriefing').addEventListener('click', () => {
+    briefingSection.style.display = 'none';
+  });
+
+  document.getElementById('btnAddAll').addEventListener('click', () => {
+    let added = 0;
+    (state.briefing?.cards || []).forEach((card, i) => {
+      if (!state.briefingAddedIds.has(i)) {
+        const newCard = { ...card, id: Date.now() + i + Math.random() };
+        state.cards.unshift(newCard);
+        state.briefingAddedIds.add(i);
+        added++;
+        // Marca o botão individual
+        const addBtn = briefingSection.querySelector(`[data-baction="add"][data-bindex="${i}"]`);
+        if (addBtn) { addBtn.textContent = '✓ Adicionado'; addBtn.classList.add('added'); }
+      }
+    });
+    if (added > 0) { saveCards(); renderFeed(true); showToast(`✓ ${added} cards do briefing adicionados ao feed.`); }
+    else { showToast('Todos os cards já foram adicionados.'); }
+  });
+
+  briefingSection.querySelector('#briefingCardsGrid').addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-baction]');
+    if (!btn) return;
+    const baction = btn.dataset.baction;
+    const bindex  = parseInt(btn.dataset.bindex);
+    const bcard   = state.briefing?.cards?.[bindex];
+    if (!bcard) return;
+
+    if (baction === 'add') {
+      if (state.briefingAddedIds.has(bindex)) { showToast('Card já adicionado ao feed.'); return; }
+      const newCard = { ...bcard, id: Date.now() + bindex };
+      state.cards.unshift(newCard);
+      state.briefingAddedIds.add(bindex);
+      saveCards(); renderFeed(true);
+      btn.textContent = '✓ Adicionado'; btn.classList.add('added');
+      showToast(`✓ "${bcard.title.slice(0,40)}…" adicionado ao feed.`);
+    }
+    if (baction === 'dive') openDiveModal(bcard);
+    if (baction === 'mission') openMissionModal(bcard);
+  });
+}
+
+// Restaura briefing do localStorage no boot se for do mesmo dia
+function restoreBriefing() {
+  const saved = loadBriefing();
+  if (!saved) return;
+  const today = new Date().toISOString().slice(0,10);
+  if (saved.date === today) {
+    state.briefing = saved;
+    state.briefingAddedIds = new Set();
+    renderBriefingSection(saved);
+    briefingSection.style.display = 'block';
+    document.getElementById('briefingBtnSub').textContent = 'Atualizado hoje · clique para regerar';
   }
 }
 
 // ============================================================
-//  MODAL DE DEEP DIVE
+//  DEEP DIVE MODAL
 // ============================================================
 function openDiveModal(card) {
   const cfg = CAT[card.category] || { color:'#4a8eff', bg:'rgba(74,142,255,0.1)', border:'rgba(74,142,255,0.22)', emoji:'◉' };
   const dd  = card.deepDiveContent || {};
-
   document.getElementById('modalAccentBar').style.background = `linear-gradient(90deg, ${cfg.color}, transparent 70%)`;
   const catEl = document.getElementById('modalCat');
   catEl.textContent = cfg.emoji + ' ' + card.category;
@@ -1047,78 +1297,170 @@ function openDiveModal(card) {
   catEl.style.cssText = `color:${cfg.color};background:${cfg.bg};border:1px solid ${cfg.border};`;
   document.getElementById('modalTitle').textContent = card.title;
   document.getElementById('modal').style.setProperty('--modal-color', cfg.color);
-
-  // Suporta tanto arrays (padrão interno) quanto strings (retorno da IA normalizado)
   const applications = Array.isArray(dd.applications) ? dd.applications : [];
   const steps        = Array.isArray(dd.steps)        ? dd.steps        : [];
   const howToUse     = dd.howToUse || '';
-
-  const kpisHtml = card.kpis ? `
-    <div class="modal-section">
-      <div class="modal-section-title">Métricas-chave</div>
-      <div class="modal-kpis">${card.kpis.map(k=>`<div class="modal-kpi"><div class="modal-kpi-val" style="color:${cfg.color}">${k.val}</div><div class="modal-kpi-lbl">${k.lbl}</div></div>`).join('')}</div>
-    </div>` : '';
-
-  const howHtml = howToUse ? `
-    <div class="modal-section">
-      <div class="modal-section-title">Como usar no seu contexto</div>
-      <div class="modal-text">${escHtml(howToUse)}</div>
-    </div>` : '';
-
-  const appsHtml = applications.map(a => `<div class="app-item"><span class="app-arrow">→</span><span>${escHtml(a)}</span></div>`).join('');
-  const stepsHtml = steps.map((s,i) => `<div class="step-item"><div class="step-num">${i+1}</div><div class="step-text">${escHtml(s)}</div></div>`).join('');
-
+  const kpisHtml     = card.kpis ? `<div class="modal-section"><div class="modal-section-title">Métricas-chave</div><div class="modal-kpis">${card.kpis.map(k=>`<div class="modal-kpi"><div class="modal-kpi-val" style="color:${cfg.color}">${k.val}</div><div class="modal-kpi-lbl">${k.lbl}</div></div>`).join('')}</div></div>` : '';
+  const howHtml      = howToUse ? `<div class="modal-section"><div class="modal-section-title">Como usar no seu contexto</div><div class="modal-text">${escHtml(howToUse)}</div></div>` : '';
+  const appsHtml     = applications.map(a => `<div class="app-item"><span class="app-arrow">→</span><span>${escHtml(a)}</span></div>`).join('');
+  const stepsHtml    = steps.map((s,i) => `<div class="step-item"><div class="step-num">${i+1}</div><div class="step-text">${escHtml(s)}</div></div>`).join('');
   document.getElementById('modalBody').innerHTML = `
-    <div class="modal-section">
-      <div class="modal-section-title">Contexto expandido</div>
-      <div class="modal-text">${escHtml(dd.expanded || card.summary)}</div>
-    </div>
-    ${kpisHtml}
-    ${howHtml}
+    <div class="modal-section"><div class="modal-section-title">Contexto expandido</div><div class="modal-text">${escHtml(dd.expanded || card.summary)}</div></div>
+    ${kpisHtml}${howHtml}
     ${applications.length ? `<div class="modal-section"><div class="modal-section-title">Aplicações práticas</div><div class="app-list">${appsHtml}</div></div>` : ''}
-    ${steps.length ? `<div class="modal-section"><div class="modal-section-title">Próximos passos</div><div class="steps-list">${stepsHtml}</div></div>` : ''}
-  `;
+    ${steps.length ? `<div class="modal-section"><div class="modal-section-title">Próximos passos</div><div class="steps-list">${stepsHtml}</div></div>` : ''}`;
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function closeDiveModal() {
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeDiveModal() { document.getElementById('overlay').classList.remove('open'); document.body.style.overflow = ''; }
 document.getElementById('modalClose').addEventListener('click', closeDiveModal);
 document.getElementById('overlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeDiveModal(); });
 
 // ============================================================
-//  MODAL DE EDIÇÃO
+//  MISSION MODAL
+// ============================================================
+async function openMissionModal(card) {
+  const missionOverlay = document.getElementById('missionOverlay');
+  const missionTitle   = document.getElementById('missionTitle');
+  const missionMeta    = document.getElementById('missionMeta');
+  const missionBody    = document.getElementById('missionBody');
+
+  // Reset para loading
+  missionTitle.textContent = card.title;
+  missionMeta.innerHTML    = '';
+  missionBody.innerHTML    = `<div class="mission-loading"><div class="mission-loading-spinner"></div><div class="mission-loading-text">Gerando missão com IA para este card…</div></div>`;
+  missionOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const res  = await fetch('/.netlify/functions/generate-mission', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ card: {
+        title: card.title, category: card.category,
+        summary: card.summary, whyItMatters: card.whyItMatters,
+        connection: card.connection, suggestedAction: card.suggestedAction,
+        deepDiveContent: card.deepDiveContent,
+      }})
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || `Erro HTTP ${res.status}`);
+    renderMission(data.mission, missionTitle, missionMeta, missionBody);
+  } catch (err) {
+    console.error('[Pulse/Mission] Erro:', err.message);
+    // Fallback local básico
+    renderMission(localMissionFallback(card), missionTitle, missionMeta, missionBody);
+    showToast(`⚠ IA indisponível — missão gerada localmente.`, 'error');
+  }
+}
+
+function localMissionFallback(card) {
+  return {
+    missionTitle: `Executar: ${card.title.slice(0,60)}`,
+    objective:    card.suggestedAction || 'Explorar e aplicar o conteúdo do card.',
+    whyThisMatters: card.whyItMatters || '',
+    estimatedDuration: '1h',
+    difficulty: 'Média',
+    deliverable: 'Notas ou artefato documentado no Notion ou GitHub.',
+    checklist: [
+      'Ler o resumo completo do card com atenção',
+      'Pesquisar 2 fontes primárias sobre o tema',
+      'Anotar os 3 pontos mais relevantes para o TCC ou carreira',
+      'Definir a próxima ação concreta com prazo',
+      'Arquivar referências no Zotero ou Notion'
+    ],
+    firstStep: 'Abrir o navegador e pesquisar o tema no Google Scholar agora.',
+    tools: ['Google Scholar', 'Notion', 'Zotero'],
+  };
+}
+
+function renderMission(mission, titleEl, metaEl, bodyEl) {
+  titleEl.textContent = mission.missionTitle || '—';
+
+  const diffClass = (mission.difficulty||'').toLowerCase() === 'alta' ? 'diff-alta' : (mission.difficulty||'').toLowerCase() === 'baixa' ? 'diff-baixa' : 'diff-media';
+  metaEl.innerHTML = `
+    <span class="mission-meta-pill duration">⏱ ${escHtml(mission.estimatedDuration||'—')}</span>
+    <span class="mission-meta-pill ${diffClass}">◎ ${escHtml(mission.difficulty||'Média')}</span>`;
+
+  // Checklist com estado interativo
+  const checklistHtml = (mission.checklist || []).map((item, i) => `
+    <div class="mission-check-item" data-cindex="${i}">
+      <div class="mission-check-box">✓</div>
+      <div class="mission-check-text">${escHtml(item)}</div>
+    </div>`).join('');
+
+  const toolsHtml = (mission.tools || []).map(t => `<span class="mission-tool-pill">${escHtml(t)}</span>`).join('');
+
+  bodyEl.innerHTML = `
+    <div class="mission-block">
+      <div class="mission-block-title">Objetivo</div>
+      <div class="mission-block-text">${escHtml(mission.objective||'—')}</div>
+    </div>
+    <div class="mission-block">
+      <div class="mission-block-title">Por que isso importa</div>
+      <div class="mission-block-text">${escHtml(mission.whyThisMatters||'—')}</div>
+    </div>
+    <div class="mission-block">
+      <div class="mission-block-title">Entregável</div>
+      <div class="mission-deliverable"><span class="mission-deliverable-icon">📦</span><span>${escHtml(mission.deliverable||'—')}</span></div>
+    </div>
+    <div class="mission-block">
+      <div class="mission-block-title">Checklist da Missão</div>
+      <div class="mission-progress-bar"><div class="mission-progress-fill" id="missionProgressFill" style="width:0%"></div></div>
+      <div class="mission-progress-label" id="missionProgressLabel">0 / ${(mission.checklist||[]).length} concluídos</div>
+      <div class="mission-checklist" id="missionChecklist">${checklistHtml}</div>
+    </div>
+    <div class="mission-first-step">
+      <div class="mission-first-step-label">▶ Primeiro passo (5 minutos)</div>
+      <div class="mission-first-step-text">${escHtml(mission.firstStep||'—')}</div>
+    </div>
+    ${toolsHtml ? `<div class="mission-block"><div class="mission-block-title">Ferramentas</div><div class="mission-tools">${toolsHtml}</div></div>` : ''}`;
+
+  // Interatividade do checklist
+  const total = (mission.checklist || []).length;
+  function updateProgress() {
+    const done = bodyEl.querySelectorAll('.mission-check-item.checked').length;
+    const pct  = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('missionProgressFill').style.width = pct + '%';
+    document.getElementById('missionProgressLabel').textContent = `${done} / ${total} concluídos`;
+  }
+  bodyEl.querySelector('#missionChecklist').addEventListener('click', function(e) {
+    const item = e.target.closest('.mission-check-item');
+    if (!item) return;
+    item.classList.toggle('checked');
+    updateProgress();
+  });
+}
+
+function closeMissionModal() { document.getElementById('missionOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('missionClose').addEventListener('click', closeMissionModal);
+document.getElementById('missionOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeMissionModal(); });
+
+// ============================================================
+//  EDIT MODAL
 // ============================================================
 let editingId = null;
 
 function openEditModal(card) {
   editingId = card.id;
-  document.getElementById('editTitle').textContent = card.generatedByAI ? 'Editar card gerado por IA' : 'Editar card';
-  document.getElementById('ef-title').value         = card.title || '';
-  document.getElementById('ef-category').value      = card.category || 'TCC';
-  document.getElementById('ef-relevance').value     = card.relevance || 8;
-  document.getElementById('ef-rel-val').textContent = (card.relevance||8).toFixed(1);
-  document.getElementById('ef-summary').value       = card.summary || '';
-  document.getElementById('ef-why').value           = card.whyItMatters || '';
-  document.getElementById('ef-connection').value    = card.connection || '';
-  document.getElementById('ef-action').value        = card.suggestedAction || '';
-  document.getElementById('ef-source').value        = card.sourceUrl || '';
-  document.getElementById('ef-deepExpanded').value  = (card.deepDiveContent && card.deepDiveContent.expanded) || '';
+  document.getElementById('editTitle').textContent   = card.generatedByAI ? 'Editar card gerado por IA' : 'Editar card';
+  document.getElementById('ef-title').value          = card.title || '';
+  document.getElementById('ef-category').value       = card.category || 'TCC';
+  document.getElementById('ef-relevance').value      = card.relevance || 8;
+  document.getElementById('ef-rel-val').textContent  = (card.relevance||8).toFixed(1);
+  document.getElementById('ef-summary').value        = card.summary || '';
+  document.getElementById('ef-why').value            = card.whyItMatters || '';
+  document.getElementById('ef-connection').value     = card.connection || '';
+  document.getElementById('ef-action').value         = card.suggestedAction || '';
+  document.getElementById('ef-source').value         = card.sourceUrl || '';
+  document.getElementById('ef-deepExpanded').value   = (card.deepDiveContent && card.deepDiveContent.expanded) || '';
   document.getElementById('editOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-document.getElementById('ef-relevance').addEventListener('input', function() {
-  document.getElementById('ef-rel-val').textContent = parseFloat(this.value).toFixed(1);
-});
-
-function closeEditModal() {
-  document.getElementById('editOverlay').classList.remove('open');
-  document.body.style.overflow = ''; editingId = null;
-}
+document.getElementById('ef-relevance').addEventListener('input', function() { document.getElementById('ef-rel-val').textContent = parseFloat(this.value).toFixed(1); });
+function closeEditModal() { document.getElementById('editOverlay').classList.remove('open'); document.body.style.overflow = ''; editingId = null; }
 document.getElementById('editClose').addEventListener('click', closeEditModal);
 document.getElementById('editCancel').addEventListener('click', closeEditModal);
 document.getElementById('editOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeEditModal(); });
@@ -1147,22 +1489,16 @@ document.getElementById('editSave').addEventListener('click', function() {
 //  CONFIRM DIALOG
 // ============================================================
 let confirmCallback = null;
-
 function openConfirm({ icon, title, sub, okLabel, okClass, onOk }) {
   document.getElementById('confirmIcon').textContent  = icon;
   document.getElementById('confirmTitle').textContent = title;
   document.getElementById('confirmSub').textContent   = sub;
   const ok = document.getElementById('confirmOk');
-  ok.textContent = okLabel;
-  ok.className   = 'btn-confirm-ok' + (okClass ? ' ' + okClass : '');
+  ok.textContent = okLabel; ok.className = 'btn-confirm-ok' + (okClass ? ' ' + okClass : '');
   confirmCallback = onOk;
   document.getElementById('confirmOverlay').classList.add('open');
 }
-
-function closeConfirm() {
-  document.getElementById('confirmOverlay').classList.remove('open');
-  confirmCallback = null;
-}
+function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('open'); confirmCallback = null; }
 document.getElementById('confirmCancel').addEventListener('click', closeConfirm);
 document.getElementById('confirmOk').addEventListener('click', () => { if (confirmCallback) confirmCallback(); closeConfirm(); });
 document.getElementById('confirmOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeConfirm(); });
@@ -1171,7 +1507,7 @@ document.getElementById('confirmOverlay').addEventListener('click', e => { if (e
 //  EXPORTAR BACKUP
 // ============================================================
 document.getElementById('btnExport').addEventListener('click', function() {
-  const data = { version:'0.3', exportedAt:new Date().toISOString(), profile:{name:'Lucas',institution:'Unicamp',employer:'Agibank'}, cards:state.cards };
+  const data = { version:'0.4', exportedAt:new Date().toISOString(), profile:{name:'Lucas',institution:'Unicamp',employer:'Agibank'}, cards:state.cards };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
@@ -1184,33 +1520,18 @@ document.getElementById('btnExport').addEventListener('click', function() {
 //  IMPORTAR BACKUP
 // ============================================================
 document.getElementById('btnImportTrigger').addEventListener('click', () => document.getElementById('importFile').click());
-
 document.getElementById('importFile').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = function(evt) {
     try {
       const parsed = JSON.parse(evt.target.result);
       const cards  = Array.isArray(parsed) ? parsed : (parsed.cards || null);
       if (!Array.isArray(cards) || cards.length === 0) throw new Error('Formato inválido');
-      openConfirm({
-        icon:'⬆', title:`Importar ${cards.length} cards?`,
-        sub:'O feed atual será substituído pelos cards do backup.',
-        okLabel:'Importar', okClass:'safe',
+      openConfirm({ icon:'⬆', title:`Importar ${cards.length} cards?`, sub:'O feed atual será substituído pelos cards do backup.', okLabel:'Importar', okClass:'safe',
         onOk:() => {
-          state.cards = cards.map(c => ({
-            ...c,
-            status:c.status||(c.useful?'useful':c.ignored?'ignored':'active'),
-            whyItMatters:c.whyItMatters||c.why||'',
-            suggestedAction:c.suggestedAction||c.action||'',
-            sourceUrl:c.sourceUrl||c.source||'#',
-            deepDiveContent:c.deepDiveContent||c.deepDive||{applications:[],steps:[]},
-            createdAt:c.createdAt||new Date().toISOString(),
-            generatedByAI: c.generatedByAI || false,
-          }));
-          saveCards(); renderFeed(true);
-          showToast(`✓ ${cards.length} cards importados e salvos.`);
+          state.cards = cards.map(c => ({...c, status:c.status||(c.useful?'useful':c.ignored?'ignored':'active'), whyItMatters:c.whyItMatters||c.why||'', suggestedAction:c.suggestedAction||c.action||'', sourceUrl:c.sourceUrl||c.source||'#', deepDiveContent:c.deepDiveContent||c.deepDive||{applications:[],steps:[]}, createdAt:c.createdAt||new Date().toISOString(), generatedByAI:c.generatedByAI||false, fromBriefing:c.fromBriefing||false }));
+          saveCards(); renderFeed(true); showToast(`✓ ${cards.length} cards importados.`);
         }
       });
     } catch(err) { showToast('⚠️ Arquivo inválido. Verifique o JSON.', 'error'); }
@@ -1223,14 +1544,8 @@ document.getElementById('importFile').addEventListener('change', function(e) {
 //  RESETAR FEED
 // ============================================================
 document.getElementById('btnReset').addEventListener('click', function() {
-  openConfirm({
-    icon:'↺', title:'Resetar para os cards padrão?',
-    sub:'Todos os cards gerados ou editados serão perdidos.',
-    okLabel:'Resetar', okClass:'',
-    onOk:() => {
-      state.cards = getDefaultCards(); saveCards(); renderFeed(true);
-      showToast('↺ Feed resetado para os cards padrão.');
-    }
+  openConfirm({ icon:'↺', title:'Resetar para os cards padrão?', sub:'Todos os cards gerados ou editados serão perdidos.', okLabel:'Resetar', okClass:'',
+    onOk:() => { state.cards = getDefaultCards(); saveCards(); renderFeed(true); showToast('↺ Feed resetado.'); }
   });
 });
 
@@ -1238,7 +1553,7 @@ document.getElementById('btnReset').addEventListener('click', function() {
 //  TECLAS DE ATALHO
 // ============================================================
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeDiveModal(); closeEditModal(); closeConfirm(); }
+  if (e.key === 'Escape') { closeDiveModal(); closeEditModal(); closeConfirm(); closeMissionModal(); }
 });
 
 // ============================================================
@@ -1255,9 +1570,9 @@ document.addEventListener('keydown', e => {
       sourceUrl:c.sourceUrl||c.source||'#',
       deepDiveContent:c.deepDiveContent||c.deepDive||{applications:[],steps:[]},
       createdAt:c.createdAt||new Date().toISOString(),
-      generatedByAI: c.generatedByAI || false,
+      generatedByAI:c.generatedByAI||false,
+      fromBriefing:c.fromBriefing||false,
     }));
-    // Salva no novo LS_KEY se veio de migração
     saveCards();
     showToast(`✓ ${state.cards.length} cards carregados.`);
   } else {
@@ -1265,6 +1580,7 @@ document.addEventListener('keydown', e => {
     saveCards();
   }
   renderFeed();
+  restoreBriefing(); // restaura briefing do dia se houver
 })();
 </script>
 </body>

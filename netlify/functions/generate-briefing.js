@@ -90,9 +90,9 @@ exports.handler = async function (event) {
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
       generationConfig: {
-        temperature: 0.8,
-        topP: 0.92,
-        maxOutputTokens: 3500,
+        temperature: 0.2,
+        topP: 0.8,
+        maxOutputTokens: 6000,
         responseMimeType: "application/json",
       },
     });
